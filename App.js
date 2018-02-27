@@ -10,11 +10,14 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  Button,
 } from 'react-native';
 
 
 const Web3 = require('web3');
+// const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/fbuouJvwnJedVLF6og25'));
+const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
 
 
 const instructions = Platform.select({
@@ -26,10 +29,40 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
-
   componentWillMount() {
-    const web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/'));
-    web3.eth.getBlock('latest').then(console.log)
+    web3.eth.getBlock('latest').then(console.log);
+    const createAccount = web3.eth.accounts.create();
+    console.log('*** create account: ', createAccount);
+    this.getData(web3);
+    setTimeout(() => {
+      web3.eth.getAccounts().then(result => console.log('*** get accounts after timeout: ', result));
+    }, 2000);
+    // console.log('*** App accounts: ', web3.eth.getAccounts().then(result => console.log('*** App getAccounts() result: ', result)));
+    // const accounts = web3.eth.accounts.create();
+    // const wallet = web3.eth.accounts.wallet.create();
+
+    console.log('*** App wallet: ', web3.eth.accounts.wallet);
+  }
+
+  getData = async () => {
+    const accounts = await web3.eth.getAccounts();
+    console.log('*** App accounts: ', accounts);
+  }
+
+  createWallet = async () => {
+    const wallet = web3.eth.accounts.wallet.create();
+    console.log('*** App create wallet: ', wallet);
+  }
+
+  getWallet = async () => {
+    console.log('*** App create get wallet: ', web3.eth.accounts.wallet);
+  }
+
+  newAccount = async () => {
+    const newAccount = web3.eth.accounts.create();
+    const wallet = web3.eth.accounts.wallet.add(newAccount);
+    console.log('*** App new account: ', newAccount);
+    console.log('*** App new wallet: ', web3.eth.accounts.wallet);
   }
 
   render() {
@@ -44,6 +77,26 @@ export default class App extends Component<Props> {
         <Text style={styles.instructions}>
           {instructions}
         </Text>
+        <Button
+          onPress={this.getData}
+          title="Get data"
+          color="#841584"
+        />
+        <Button
+          onPress={this.createWallet}
+          title="Create wallet"
+          color="#841584"
+        />
+        <Button
+          onPress={this.getWallet}
+          title="Get wallet"
+          color="#841584"
+        />
+        <Button
+          onPress={this.newAccount}
+          title="New Account"
+          color="#841584"
+        />
       </View>
     );
   }
