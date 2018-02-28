@@ -14,7 +14,11 @@
     "react": "16.2.0",
     "react-native": "0.53.3",
     "react-native-aes-crypto": "https://github.com/StoriqaTeam/react-native-aes.git#bugfix/pbkdf2-length",
+    "react-native-camera": "^1.0.1",
     "react-native-confirmation-code-input": "^1.0.4",
+    "react-native-qrcode": "^0.2.6",
+    "react-native-qrcode-scanner": "^0.0.30",
+    "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-rsa-native": "^1.0.14",
     "react-native-secure-key-store": "^1.0.9",
     "web3": "^1.0.0-beta.30"

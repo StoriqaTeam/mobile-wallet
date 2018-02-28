@@ -4,6 +4,7 @@
  */
 
 // @flow
+import '../../../global';
 import React, { Component } from 'react';
 import {
   Platform,
@@ -52,7 +53,9 @@ export default class App extends Component<PropsType, StateType> {
     const salt = generateSalt();
     const iv = convertToHex(randomString(16));
     const key = await generateKeyByPin(pin, salt);
-    return Aes.encrypt(str, key, iv).then(cipher => { cipher, salt, iv });
+    // return Aes.encrypt(str, key, iv).then(cipher => { cipher, salt, iv });
+    return Aes.encrypt(str, key, iv)
+      .then(cipher => ({ cipher, salt, iv }));
   }
 
   decrypt = async (cipher, key, iv) => {
@@ -93,6 +96,7 @@ export default class App extends Component<PropsType, StateType> {
 
   storePrivateKey = () => {
     const { publicKey, privateKey } = this.state;
+    console.log('*** storePrivateKey privateKey: ', privateKey);
     this.encrypt(privateKey)
       .then(result => {
         console.log('*** storePrivateKey result: ', result);
