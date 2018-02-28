@@ -13,13 +13,16 @@
     "node-libs-browser": "^2.1.0",
     "react": "16.2.0",
     "react-native": "0.53.3",
-    "react-native-aes-crypto": "^1.2.1",
+    "react-native-aes-crypto": "https://github.com/StoriqaTeam/react-native-aes.git#bugfix/pbkdf2-length",
     "react-native-confirmation-code-input": "^1.0.4",
+    "react-native-rsa-native": "^1.0.14",
+    "react-native-secure-key-store": "^1.0.9",
     "web3": "^1.0.0-beta.30"
   },
   "devDependencies": {
     "babel-jest": "22.4.1",
     "babel-preset-react-native": "4.0.0",
+    "flow-bin": "^0.66.0",
     "jest": "22.4.2",
     "react-test-renderer": "16.2.0"
   },

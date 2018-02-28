@@ -1,9 +1,9 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
- * @flow
  */
 
+// @flow
 import './global';
 import React, { Component } from 'react';
 import {
@@ -15,6 +15,7 @@ import {
   TextInput,
 } from 'react-native';
 import Aes from 'react-native-aes-crypto';
+import RNSecureKeyStore from 'react-native-secure-key-store';
 
 
 const Web3 = require('web3');
@@ -22,13 +23,19 @@ const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
 // const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/fbuouJvwnJedVLF6og25'));
 
 
-type Props = {};
+type PropsType = {};
+type StateType = {
+  publicKey: string,
+  privateKey: string,
+  pin: string,
+};
 
-export default class App extends Component<Props> {
+export default class App extends Component<PropsType, StateType> {
   constructor() {
     super();
     this.state = {
-      result: null,
+      publicKey: null,
+      privateKey: null,
       pin: null,
     }
   }
@@ -37,64 +44,78 @@ export default class App extends Component<Props> {
     web3.eth.getBlock('latest').then(console.log);
   }
 
-  getData = async () => {
-    const accounts = await web3.eth.getAccounts();
-    console.log('*** App accounts: ', accounts);
-  }
-
-  createWallet = async () => {
-    const wallet = web3.eth.accounts.wallet.create();
-    console.log('*** App create wallet: ', wallet);
-  }
-
-  getWallet = async () => {
-    console.log('*** App create get wallet: ', web3.eth.accounts.wallet);
-  }
-
-  newAccount = async () => {
-    const newAccount = web3.eth.accounts.create();
-    const wallet = web3.eth.accounts.wallet.add(newAccount);
-  }
-
   onChangePin = (pin) => {
     this.setState({ pin });
   }
 
-  generateBase64Key = async () => {
+  encrypt = async (str: string) => {
     const { pin } = this.state;
-    const salt = Math.random().toString(36).substring(2, 15);
-    return await Aes.pbkdf2(pin, salt);
+    const salt = generateSalt();
+    const iv = convertToHex(randomString(16));
+    const key = await generateKeyByPin(pin, salt);
+    return Aes.encrypt(str, key, iv).then(cipher => { cipher, salt, iv });
   }
 
-  encryptPrivat = async () => {
-    const text = "Hello some text";
-    const keyBase64 = await this.generateBase64Key();
-    const ivHex = convertToHex(randomString(16));
-    // const iv = "11112222333344445555666677778888";
-    // const salt = Math.random().toString(36).substring(2, 15);
-    // console.log('*** check Base64: ', isBase64(ivBase64), isBase64(keyBase64));
-    // console.log('*** App encryptPrivat data: ', {text, keyBase64, ivHex});
-    const encryptedResult = await Aes.encrypt(text, keyBase64, ivHex);
-    // keyBase64 = cece3a7dc9cf86aae926fd2ee520a06e
-    // ivHex = 11112222333344445555666677778888
-    // console.log('*** App encryptedResult: ', encryptedResult);
-    return encryptedResult;
+  decrypt = async (cipher, key, iv) => {
+    return await Aes.decrypt(cipher, key, iv);
   }
 
-  handleEncript = () => {
-    this.encryptPrivat().then(result => {
-      // this.setState({ result });
-    });
+  getPrivateKey = async () => {
+    const { publicKey } = this.state;
+    RNSecureKeyStore.get(publicKey)
+      .then((res) => {
+        console.log('# got private key from keystore: ', res);
+      }, (err) => {
+        console.log('# error when getting private key from keystore: ', err);
+      });
+  }
+
+  // getData = async () => {
+  //   const accounts = await web3.eth.getAccounts();
+  //   console.log('*** App accounts: ', accounts);
+  // }
+
+  // createWallet = async () => {
+  //   const wallet = web3.eth.accounts.wallet.create();
+  //   console.log('*** App create wallet: ', wallet);
+  // }
+
+  // getWallet = async () => {
+  //   console.log('*** App create get wallet: ', web3.eth.accounts.wallet);
+  // }
+
+  newAccount = async () => {
+    const newAccount = web3.eth.accounts.create();
+    console.log('*** App new account: ', newAccount);
+    this.setState({ publicKey: newAccount.address, privateKey: newAccount.privateKey }); // this unsecure just for develop
+    // const wallet = web3.eth.accounts.wallet.add(newAccount);
+    // const result = web3.eth.accounts.privateKeyToAccount('0x9aabf3b04524979bebe58ace7139e0bb2aac2cf87644577ea7dd66a9a2cdab52');
+  }
+
+  storePrivateKey = () => {
+    const { publicKey, privateKey } = this.state;
+    this.encrypt(privateKey)
+      .then(result => {
+        console.log('*** storePrivateKey result: ', result);
+        const privateStr = [result.cipher, result.salt, result.iv].join('.');
+        RNSecureKeyStore.set(publicKey, privateStr)
+          .then((res) => {
+            console.log('# privat key added to keystore: ', res);
+          }, (err) => {
+            console.log('# error when adding private key to keystore: ', err);
+          });
+      })
+      .catch(err => { console.log('*** storePrivatKey err: ', err)});
   }
 
   render() {
-    const { pin, result } = this.state;
+    const { pin, publicKey } = this.state;
     return (
-      <View style={{}}>
+      <View style={{ marginTop: 30 }}>
         <Text style={styles.instructions}>
-          {result}
+          Storiqa STQ Peeck
         </Text>
-        <Button
+        {/* <Button
           onPress={this.getData}
           title="Get data"
           color="#841584"
@@ -108,25 +129,35 @@ export default class App extends Component<Props> {
           onPress={this.getWallet}
           title="Get wallet"
           color="#841584"
-        />
+        /> */}
         <Button
           onPress={this.newAccount}
           title="New Account"
           color="#841584"
         />
-        <TextInput
-          value={pin}
-          onChangeText={this.onChangePin}
-          keyboardType="numeric"
-          maxLength={5}
-          enablesReturnKeyAutomatically={true}
-          returnKeyType="done"
-          style={{ margin: 16, padding: 5, borderWidth: 1 }}
+        <View style={{ alignItems: 'center' }}>
+          <Text>Enter PIN</Text>
+          <TextInput
+            value={pin}
+            onChangeText={this.onChangePin}
+            keyboardType="numeric"
+            maxLength={5}
+            enablesReturnKeyAutomatically={true}
+            returnKeyType="done"
+            style={{ margin: 16, padding: 5, borderWidth: 1, width: '90%', textAlign: 'center' }}
+          />
+        </View>
+        <Button
+          onPress={this.storePrivateKey}
+          title="Store privateKey"
+          color="#841584"
+          disabled={!publicKey || !pin}
         />
         <Button
-          onPress={this.handleEncript}
-          title="Generate key"
+          onPress={this.getPrivateKey}
+          title="Get privateKey"
           color="#841584"
+          disabled={!publicKey}
         />
       </View>
     );
@@ -162,13 +193,13 @@ function randomString(length) {
 	return randomstring;
 }
 
-function isBase64(str) {
-  try {
-      return btoa(atob(str)) == str;
-  } catch (err) {
-      return false;
-  }
-}
+// function isBase64(str) {
+//   try {
+//       return btoa(atob(str)) == str;
+//   } catch (err) {
+//       return false;
+//   }
+// }
 
 function convertToHex(str) {
   var hex = '';
@@ -178,4 +209,12 @@ function convertToHex(str) {
   console.log('*** str: ', str);
   console.log('*** hex: ', hex);
   return hex;
+}
+
+function generateSalt() {
+  return Math.random().toString(36).substring(2, 15);
+}
+
+const generateKeyByPin = async (pin, salt) => {
+  return await Aes.pbkdf2(pin, salt);
 }

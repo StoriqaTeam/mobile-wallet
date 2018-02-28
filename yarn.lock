@@ -2311,6 +2311,10 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
+flow-bin@^0.66.0:
+  version "0.66.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.66.0.tgz#a96dde7015dc3343fd552a7b4963c02be705ca26"
+
 for-each@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/for-each/-/for-each-0.3.2.tgz#2c40450b9348e97f281322593ba96704b9abd4d4"
@@ -4620,9 +4624,9 @@ react-devtools-core@3.0.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-aes-crypto@^1.2.1:
+"react-native-aes-crypto@https://github.com/StoriqaTeam/react-native-aes.git#bugfix/pbkdf2-length":
   version "1.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-aes-crypto/-/react-native-aes-crypto-1.2.1.tgz#891c7466aabb343eefc6de01578bb2c07867e9b4"
+  resolved "https://github.com/StoriqaTeam/react-native-aes.git#04d6c65c1a39f77344d918cc644c490963bc5fb5"
 
 react-native-confirmation-code-input@^1.0.4:
   version "1.0.4"
@@ -4630,6 +4634,14 @@ react-native-confirmation-code-input@^1.0.4:
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"
+
+react-native-rsa-native@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/react-native-rsa-native/-/react-native-rsa-native-1.0.14.tgz#74964869d33eea8a5b9c251eae0553d7d9136771"
+
+react-native-secure-key-store@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-secure-key-store/-/react-native-secure-key-store-1.0.9.tgz#78246f3715fbac8522457e75328ad99022e0d82e"
 
 react-native@0.53.3:
   version "0.53.3"

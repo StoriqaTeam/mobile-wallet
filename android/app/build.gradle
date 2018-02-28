@@ -138,6 +138,9 @@ android {
 
 dependencies {
     compile project(':react-native-aes-crypto')
+    compile project(':react-native-rsa-native')
+    compile project(':react-native-secure-key-store')
+    compile project(':react-native-aes-crypto')
     compile project(':react-native-aes-crypto')
     compile project(':react-native-aes-crypto')
     compile fileTree(dir: "libs", include: ["*.jar"])

@@ -35,6 +35,8 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* MobileWalletTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MobileWalletTests.m */; };
+		52BBD6E9FD214A6B97CA1B85 /* libRNSecureKeyStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4A6E22D3DD14FAFAC1482C9 /* libRNSecureKeyStore.a */; };
+		5DB7C90312664C28A309C235 /* libRNRSA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B72EBE1BBC4492EB350462C /* libRNRSA.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -258,6 +260,27 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		E5A1D65D2046F2610082574D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F87B883727146549E717F33 /* RNRSA.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BF40FFBD1F05EC4000DC4E95;
+			remoteInfo = RNRSA;
+		};
+		E5A1D6602046F2610082574D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D77A4AE67224BD4991F0CD1 /* RNSecureKeyStore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNSecureKeyStore;
+		};
+		E5A1D6752046F5CA0082574D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A97FDD0AD3D54EE88DF9BC4E /* RCTAes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D980DD1BE9F11C00FA27E5;
+			remoteInfo = RCTAes;
+		};
 		E5E3466D2045A40800789DF8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -321,13 +344,6 @@
 			remoteGlobalIDString = 32D980DD1BE9F11C00FA27E5;
 			remoteInfo = RCTAes;
 		};
-		E5E346942045B30100789DF8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C2D4321D50164D53A48191C6 /* RCTAes.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 32D980DD1BE9F11C00FA27E5;
-			remoteInfo = RCTAes;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -353,13 +369,17 @@
 		2D02E47B1E0B4A5D006451C7 /* MobileWallet-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MobileWallet-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* MobileWallet-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MobileWallet-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F87B883727146549E717F33 /* RNRSA.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNRSA.xcodeproj; path = "../node_modules/react-native-rsa-native/ios/RNRSA.xcodeproj"; sourceTree = "<group>"; };
 		31E777A6E8274F768C41937A /* libRCTAes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAes.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		7B72EBE1BBC4492EB350462C /* libRNRSA.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRSA.a; sourceTree = "<group>"; };
+		7D77A4AE67224BD4991F0CD1 /* RNSecureKeyStore.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSecureKeyStore.xcodeproj; path = "../node_modules/react-native-secure-key-store/ios/RNSecureKeyStore.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		85F5AB6FBA7B4EFF86399BA8 /* RCTAes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAes.xcodeproj; path = "../node_modules/react-native-aes-crypto/ios/RCTAes.xcodeproj"; sourceTree = "<group>"; };
+		A4A6E22D3DD14FAFAC1482C9 /* libRNSecureKeyStore.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSecureKeyStore.a; sourceTree = "<group>"; };
+		A97FDD0AD3D54EE88DF9BC4E /* RCTAes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAes.xcodeproj; path = "../node_modules/react-native-aes-crypto/ios/RCTAes.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		C2D4321D50164D53A48191C6 /* RCTAes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAes.xcodeproj; path = "../node_modules/react-native-aes-crypto/ios/RCTAes.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,6 +409,8 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				1C6514A8179940B7A3FA9C1B /* libRCTAes.a in Frameworks */,
+				52BBD6E9FD214A6B97CA1B85 /* libRNSecureKeyStore.a in Frameworks */,
+				5DB7C90312664C28A309C235 /* libRNRSA.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,7 +597,9 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				85F5AB6FBA7B4EFF86399BA8 /* RCTAes.xcodeproj */,
-				C2D4321D50164D53A48191C6 /* RCTAes.xcodeproj */,
+				7D77A4AE67224BD4991F0CD1 /* RNSecureKeyStore.xcodeproj */,
+				2F87B883727146549E717F33 /* RNRSA.xcodeproj */,
+				A97FDD0AD3D54EE88DF9BC4E /* RCTAes.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -624,10 +648,36 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E5A1D6582046F2610082574D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E5A1D6612046F2610082574D /* libRNSecureKeyStore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E5A1D65A2046F2610082574D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E5A1D65E2046F2610082574D /* libRNRSA.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E5A1D6712046F5CA0082574D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E5A1D6762046F5CA0082574D /* libRCTAes.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		E5E346472045A40700789DF8 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 				31E777A6E8274F768C41937A /* libRCTAes.a */,
+				A4A6E22D3DD14FAFAC1482C9 /* libRNSecureKeyStore.a */,
+				7B72EBE1BBC4492EB350462C /* libRNRSA.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -636,14 +686,6 @@
 			isa = PBXGroup;
 			children = (
 				E5E346812045A40A00789DF8 /* libRCTAes.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		E5E3468F2045B30100789DF8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E5E346952045B30100789DF8 /* libRCTAes.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -764,12 +806,12 @@
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
 				{
-					ProductGroup = E5E3467D2045A40A00789DF8 /* Products */;
-					ProjectRef = 85F5AB6FBA7B4EFF86399BA8 /* RCTAes.xcodeproj */;
+					ProductGroup = E5A1D6712046F5CA0082574D /* Products */;
+					ProjectRef = A97FDD0AD3D54EE88DF9BC4E /* RCTAes.xcodeproj */;
 				},
 				{
-					ProductGroup = E5E3468F2045B30100789DF8 /* Products */;
-					ProjectRef = C2D4321D50164D53A48191C6 /* RCTAes.xcodeproj */;
+					ProductGroup = E5E3467D2045A40A00789DF8 /* Products */;
+					ProjectRef = 85F5AB6FBA7B4EFF86399BA8 /* RCTAes.xcodeproj */;
 				},
 				{
 					ProductGroup = 5E91572E1DD0AC6500FF2AA8 /* Products */;
@@ -814,6 +856,14 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = E5A1D65A2046F2610082574D /* Products */;
+					ProjectRef = 2F87B883727146549E717F33 /* RNRSA.xcodeproj */;
+				},
+				{
+					ProductGroup = E5A1D6582046F2610082574D /* Products */;
+					ProjectRef = 7D77A4AE67224BD4991F0CD1 /* RNSecureKeyStore.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1030,6 +1080,27 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		E5A1D65E2046F2610082574D /* libRNRSA.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNRSA.a;
+			remoteRef = E5A1D65D2046F2610082574D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E5A1D6612046F2610082574D /* libRNSecureKeyStore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSecureKeyStore.a;
+			remoteRef = E5A1D6602046F2610082574D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E5A1D6762046F5CA0082574D /* libRCTAes.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTAes.a;
+			remoteRef = E5A1D6752046F5CA0082574D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		E5E3466E2045A40800789DF8 /* libjsinspector.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1091,13 +1162,6 @@
 			fileType = archive.ar;
 			path = libRCTAes.a;
 			remoteRef = E5E346802045A40A00789DF8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		E5E346952045B30100789DF8 /* libRCTAes.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTAes.a;
-			remoteRef = E5E346942045B30100789DF8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1242,12 +1306,17 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = MobileWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1268,12 +1337,17 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = MobileWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1294,6 +1368,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = MobileWallet/Info.plist;
@@ -1316,6 +1393,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = MobileWallet/Info.plist;
@@ -1346,11 +1426,16 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = "MobileWallet-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1381,11 +1466,16 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = "MobileWallet-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1416,6 +1506,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MobileWallet-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1440,6 +1532,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MobileWallet-tvOSTests";
