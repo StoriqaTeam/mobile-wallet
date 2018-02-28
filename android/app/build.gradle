@@ -99,7 +99,7 @@ android {
 
     defaultConfig {
         applicationId "com.mobilewallet"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -137,6 +137,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-aes-crypto')
+    compile project(':react-native-aes-crypto')
+    compile project(':react-native-aes-crypto')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
