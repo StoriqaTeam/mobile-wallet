@@ -16,6 +16,8 @@ import {
 } from 'react-native';
 import Aes from 'react-native-aes-crypto';
 import RNSecureKeyStore from 'react-native-secure-key-store';
+import { Actions } from 'react-native-router-flux';
+import { QRSCANNER } from '../../constants';
 
 
 const Web3 = require('web3');
@@ -136,6 +138,11 @@ export default class App extends Component<PropsType, StateType> {
         <Button
           onPress={this.newAccount}
           title="New Account"
+          color="#841584"
+        />
+        <Button
+          onPress={() => Actions.push(QRSCANNER)}
+          title="Scan QR"
           color="#841584"
         />
         <View style={{ alignItems: 'center' }}>
