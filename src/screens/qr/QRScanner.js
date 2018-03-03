@@ -1,8 +1,9 @@
 // @flow
 import React from 'react';
-import { Linking, View, Text } from 'react-native';
+import { Button, Linking, View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import { KEYGENERATOR } from '../../constants';
 
 
 class QRScanner extends React.Component {
@@ -15,12 +16,27 @@ class QRScanner extends React.Component {
 
   onSuccess = (e) => {
     console.error('qr code result ', e);
-    Linking.openURL(e.data).catch(err => console.error('An error occured', err));
+    // Linking.openURL(e.data).catch(err => console.error('An error occured', err));
+    this.goBack(e.data);
+  }
+
+  goBack = (data) => {
+    Actions.popTo(KEYGENERATOR);
+    // Actions.refresh({ qrtext: data });
+    Actions.refresh({ qrtext: data });
   }
 
   render() {
     return (
-      <QRCodeScanner onRead={this.onSuccess} />
+      <View style={{ marginTop: 30 }}>
+        <Button
+          onPress={Actions.pop}
+          title="Learn More"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+        <QRCodeScanner onRead={this.onSuccess} />
+      </View>
     );
   }
 }

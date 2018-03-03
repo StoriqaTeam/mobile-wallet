@@ -95,7 +95,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "com.mobilewallet"
@@ -106,6 +106,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -134,17 +135,22 @@ android {
             }
         }
     }
+    configurations {
+        all*.exclude group: 'com.android.support', module: 'support-v4'
+    }
 }
 
 dependencies {
-    compile project(':react-native-camera')
+    compile (project(':react-native-camera')) { 
+        exclude group: "com.google.android.gms" 
+    }
+    compile ("com.google.android.gms:play-services-vision:10.2.0") {
+        force = true;
+    }
     compile project(':react-native-aes-crypto')
-    compile project(':react-native-rsa-native')
     compile project(':react-native-secure-key-store')
-    compile project(':react-native-aes-crypto')
-    compile project(':react-native-aes-crypto')
-    compile project(':react-native-aes-crypto')
     compile fileTree(dir: "libs", include: ["*.jar"])
+    // compile 'com.android.support:multidex:1.0.1'
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
 }

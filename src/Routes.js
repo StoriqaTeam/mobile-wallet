@@ -12,7 +12,7 @@ export default () => (
       <Modal hideNavBar>
         <Stack key={ROOT}>
           <Scene key={KEYGENERATOR} hideNavBar initial component={keys.KeyGenerator} />
-          {/* <Scene key={QRGENERATOR} hideNavBar component={qr.QRGenerator} /> */}
+          <Scene key={QRGENERATOR} hideNavBar component={qr.QRGenerator} />
           <Scene key={QRSCANNER} hideNavBar component={qr.QRScanner} />
         </Stack>
       </Modal>

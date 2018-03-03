@@ -4737,13 +4737,6 @@ react-native-camera@^1.0.1:
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
-react-native-confirmation-code-input@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-native-confirmation-code-input/-/react-native-confirmation-code-input-1.0.4.tgz#f5c2cced66f26b61050fea8bfd17473af1ad5ff9"
-  dependencies:
-    lodash "^4.17.4"
-    prop-types "^15.5.10"
-
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
@@ -4785,10 +4778,6 @@ react-native-router-flux@^4.0.0-beta.28:
     path-to-regexp "^2.1.0"
     prop-types "^15.6.0"
     react-navigation "1.0.0-beta.22"
-
-react-native-rsa-native@^1.0.14:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/react-native-rsa-native/-/react-native-rsa-native-1.0.14.tgz#74964869d33eea8a5b9c251eae0553d7d9136771"
 
 react-native-secure-key-store@^1.0.9:
   version "1.0.9"
