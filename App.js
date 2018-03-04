@@ -4,6 +4,7 @@
  */
 
 // @flow
+import './global';
 import React, { Component } from 'react';
 import {
   Platform,
@@ -14,12 +15,12 @@ import {
   TextInput,
 } from 'react-native';
 import Aes from 'react-native-aes-crypto';
-import RNSecureKeyStore from 'react-native-secure-key-store';
+// import RNSecureKeyStore from 'react-native-secure-key-store';
 
-
+const host = Platform.OS === 'ios' ? 'http://localhost:8545' : 'http://8adb6cae.ngrok.io';
 const Web3 = require('web3');
-const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-// const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/fbuouJvwnJedVLF6og25'));
+// const web3 = new Web3(new Web3.providers.HttpProvider(host));
+const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/fbuouJvwnJedVLF6og25'));
 
 
 type PropsType = {};
@@ -53,20 +54,23 @@ export default class App extends Component<PropsType, StateType> {
     const iv = convertToHex(randomString(16));
     const key = await generateKeyByPin(pin, salt);
     return Aes.encrypt(str, key, iv).then(cipher => { cipher, salt, iv });
+    // return 'str';
   }
 
   decrypt = async (cipher, key, iv) => {
-    return await Aes.decrypt(cipher, key, iv);
+    // return await Aes.decrypt(cipher, key, iv);
+    return 'str1'
   }
 
   getPrivateKey = async () => {
-    const { publicKey } = this.state;
-    RNSecureKeyStore.get(publicKey)
-      .then((res) => {
-        console.log('# got private key from keystore: ', res);
-      }, (err) => {
-        console.log('# error when getting private key from keystore: ', err);
-      });
+    // const { publicKey } = this.state;
+    // RNSecureKeyStore.get(publicKey)
+    //   .then((res) => {
+    //     console.log('# got private key from keystore: ', res);
+    //   }, (err) => {
+    //     console.log('# error when getting private key from keystore: ', err);
+    //   });
+    console.log('str2');
   }
 
   // getData = async () => {
@@ -87,24 +91,25 @@ export default class App extends Component<PropsType, StateType> {
     const newAccount = web3.eth.accounts.create();
     console.log('*** App new account: ', newAccount);
     this.setState({ publicKey: newAccount.address, privateKey: newAccount.privateKey }); // this unsecure just for develop
+
     // const wallet = web3.eth.accounts.wallet.add(newAccount);
     // const result = web3.eth.accounts.privateKeyToAccount('0x9aabf3b04524979bebe58ace7139e0bb2aac2cf87644577ea7dd66a9a2cdab52');
   }
 
   storePrivateKey = () => {
     const { publicKey, privateKey } = this.state;
-    this.encrypt(privateKey)
-      .then(result => {
-        console.log('*** storePrivateKey result: ', result);
-        const privateStr = [result.cipher, result.salt, result.iv].join('.');
-        RNSecureKeyStore.set(publicKey, privateStr)
-          .then((res) => {
-            console.log('# privat key added to keystore: ', res);
-          }, (err) => {
-            console.log('# error when adding private key to keystore: ', err);
-          });
-      })
-      .catch(err => { console.log('*** storePrivatKey err: ', err)});
+    // this.encrypt(privateKey)
+    //   .then(result => {
+    //     console.log('*** storePrivateKey result: ', result);
+    //     const privateStr = [result.cipher, result.salt, result.iv].join('.');
+    //     RNSecureKeyStore.set(publicKey, privateStr)
+    //       .then((res) => {
+    //         console.log('# privat key added to keystore: ', res);
+    //       }, (err) => {
+    //         console.log('# error when adding private key to keystore: ', err);
+    //       });
+    //   })
+    //   .catch(err => { console.log('*** storePrivatKey err: ', err)});
   }
 
   render() {
@@ -189,5 +194,6 @@ function generateSalt() {
 }
 
 const generateKeyByPin = async (pin, salt) => {
-  return await Aes.pbkdf2(pin, salt);
+  // return await Aes.pbkdf2(pin, salt);
+  return 'str3'
 }

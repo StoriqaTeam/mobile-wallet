@@ -3,9 +3,9 @@ package com.mobilewallet;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import org.reactnative.camera.RNCameraPackage;
-import com.tectiv3.aes.RCTAesPackage;
-import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
+// import org.reactnative.camera.RNCameraPackage;
+// import com.tectiv3.aes.RCTAesPackage;
+// import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -25,10 +25,10 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new RNCameraPackage(),
-            new RCTAesPackage(),
-            new RNSecureKeyStorePackage()
+          new MainReactPackage()
+            // new RNCameraPackage(),
+            // new RCTAesPackage(),
+            // new RNSecureKeyStorePackage()
       );
     }
 
