@@ -150,7 +150,7 @@ dependencies {
     // compile project(':react-native-camera')
     
     compile (project(':react-native-camera')) {
-        exclude group: "com.android.support"
+        // exclude group: "com.android.support"
         exclude group: "com.google.android.gms"
     }
     // compile ('com.android.support:exifinterface:26.0.1') {

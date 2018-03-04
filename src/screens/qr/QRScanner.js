@@ -1,6 +1,15 @@
 // @flow
 import React from 'react';
-import { Button, Linking, View, Text } from 'react-native';
+import {
+  Button,
+  Linking,
+  View,
+  Text,
+  AppRegistry,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { KEYGENERATOR } from '../../constants';
@@ -31,7 +40,7 @@ class QRScanner extends React.Component {
       <View style={{ marginTop: 30 }}>
         <Button
           onPress={Actions.pop}
-          title="Learn More"
+          title="back"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />
@@ -40,5 +49,6 @@ class QRScanner extends React.Component {
     );
   }
 }
+
 
 export default QRScanner;
