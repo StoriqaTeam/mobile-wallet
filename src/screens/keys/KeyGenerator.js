@@ -14,7 +14,7 @@ import {
   Button,
   TextInput,
 } from 'react-native';
-import Aes from 'react-native-aes-crypto';
+// import Aes from 'react-native-aes-crypto';
 import RNSecureKeyStore from 'react-native-secure-key-store';
 import { Actions } from 'react-native-router-flux';
 import { QRSCANNER } from '../../constants';
@@ -242,3 +242,15 @@ function generateSalt() {
 const generateKeyByPin = async (pin, salt) => {
   return await Aes.pbkdf2(pin, salt);
 }
+
+const Aes = {
+  encrypt: async () => {
+    return null
+  },
+  decrypt: async () => {
+    return null;
+  },
+  pbkdf2: async () => {
+    return null;
+  }
+};

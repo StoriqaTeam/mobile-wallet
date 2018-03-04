@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -390,6 +389,8 @@
 		A97FDD0AD3D54EE88DF9BC4E /* RCTAes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAes.xcodeproj; path = "../node_modules/react-native-aes-crypto/ios/RCTAes.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		BE5574D9D1864A6D9D673DF4 /* libRNCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCamera.a; sourceTree = "<group>"; };
+		DD302AA363204BF7AC2202C0 /* RCTAes.xcodeproj */ = {isa = PBXFileReference; name = "RCTAes.xcodeproj"; path = "../node_modules/react-native-aes-crypto/ios/RCTAes.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		B5A055B3145F4A699A219519 /* RCTAes.xcodeproj */ = {isa = PBXFileReference; name = "RCTAes.xcodeproj"; path = "../node_modules/react-native-aes-crypto/ios/RCTAes.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -612,6 +613,8 @@
 				2F87B883727146549E717F33 /* RNRSA.xcodeproj */,
 				A97FDD0AD3D54EE88DF9BC4E /* RCTAes.xcodeproj */,
 				76B856ABEE1A4500B40BC05E /* RNCamera.xcodeproj */,
+				DD302AA363204BF7AC2202C0 /* RCTAes.xcodeproj */,
+				B5A055B3145F4A699A219519 /* RCTAes.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1342,6 +1345,8 @@
 					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = MobileWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1375,6 +1380,8 @@
 					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = MobileWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1409,6 +1416,8 @@
 					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = MobileWallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1435,6 +1444,8 @@
 					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = MobileWallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1468,6 +1479,8 @@
 					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = "MobileWallet-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1510,6 +1523,8 @@
 					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
+					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 				);
 				INFOPLIST_FILE = "MobileWallet-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
