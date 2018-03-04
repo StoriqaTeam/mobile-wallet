@@ -15,7 +15,7 @@ import {
   TextInput,
 } from 'react-native';
 import Aes from 'react-native-aes-crypto';
-// import RNSecureKeyStore from 'react-native-secure-key-store';
+import RNSecureKeyStore from 'react-native-secure-key-store';
 
 const host = Platform.OS === 'ios' ? 'http://localhost:8545' : 'http://8adb6cae.ngrok.io';
 const Web3 = require('web3');
@@ -54,23 +54,20 @@ export default class App extends Component<PropsType, StateType> {
     const iv = convertToHex(randomString(16));
     const key = await generateKeyByPin(pin, salt);
     return Aes.encrypt(str, key, iv).then(cipher => { cipher, salt, iv });
-    // return 'str';
   }
 
   decrypt = async (cipher, key, iv) => {
-    // return await Aes.decrypt(cipher, key, iv);
-    return 'str1'
+    return await Aes.decrypt(cipher, key, iv);
   }
 
   getPrivateKey = async () => {
-    // const { publicKey } = this.state;
-    // RNSecureKeyStore.get(publicKey)
-    //   .then((res) => {
-    //     console.log('# got private key from keystore: ', res);
-    //   }, (err) => {
-    //     console.log('# error when getting private key from keystore: ', err);
-    //   });
-    console.log('str2');
+    const { publicKey } = this.state;
+    RNSecureKeyStore.get(publicKey)
+      .then((res) => {
+        console.log('# got private key from keystore: ', res);
+      }, (err) => {
+        console.log('# error when getting private key from keystore: ', err);
+      });
   }
 
   // getData = async () => {
@@ -98,18 +95,18 @@ export default class App extends Component<PropsType, StateType> {
 
   storePrivateKey = () => {
     const { publicKey, privateKey } = this.state;
-    // this.encrypt(privateKey)
-    //   .then(result => {
-    //     console.log('*** storePrivateKey result: ', result);
-    //     const privateStr = [result.cipher, result.salt, result.iv].join('.');
-    //     RNSecureKeyStore.set(publicKey, privateStr)
-    //       .then((res) => {
-    //         console.log('# privat key added to keystore: ', res);
-    //       }, (err) => {
-    //         console.log('# error when adding private key to keystore: ', err);
-    //       });
-    //   })
-    //   .catch(err => { console.log('*** storePrivatKey err: ', err)});
+    this.encrypt(privateKey)
+      .then(result => {
+        console.log('*** storePrivateKey result: ', result);
+        const privateStr = [result.cipher, result.salt, result.iv].join('.');
+        RNSecureKeyStore.set(publicKey, privateStr)
+          .then((res) => {
+            console.log('# privat key added to keystore: ', res);
+          }, (err) => {
+            console.log('# error when adding private key to keystore: ', err);
+          });
+      })
+      .catch(err => { console.log('*** storePrivatKey err: ', err)});
   }
 
   render() {
@@ -194,6 +191,5 @@ function generateSalt() {
 }
 
 const generateKeyByPin = async (pin, salt) => {
-  // return await Aes.pbkdf2(pin, salt);
-  return 'str3'
+  return await Aes.pbkdf2(pin, salt);
 }
