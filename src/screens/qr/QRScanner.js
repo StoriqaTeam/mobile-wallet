@@ -37,18 +37,66 @@ class QRScanner extends React.Component {
 
   render() {
     return (
-      <View style={{ marginTop: 30 }}>
+      <View style={{ flex: 1, marginTop: 30 }}>
         <Button
           onPress={Actions.pop}
           title="back"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />
-        <QRCodeScanner onRead={this.onSuccess} />
+        {/* <QRCodeScanner
+          checkAndroid6Permissions
+          onRead={this.onSuccess}
+          containerStyle={styles.containerStyle}
+          cameraStyle={styles.cameraStyle}
+          topContent={(
+            <Text style={styles.centerText}>
+              Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
+            </Text>
+          )}
+          bottomContent={(
+            <TouchableOpacity style={styles.buttonTouchable}>
+              <Text style={styles.buttonText}>OK. Got it!</Text>
+            </TouchableOpacity>
+          )}
+        /> */}
+        <QRCodeScanner
+          onRead={this.onSuccess}
+        />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  containerStyle: {
+    marginTop: 30,
+  },
+  cameraStyle: {
+    flex: 1,
+    backgroundColor: '#333333',
+  },
+  centerText: {
+    flex: 1,
+    fontSize: 18,
+    padding: 32,
+    color: '#777',
+  },
+
+  textBold: {
+    fontWeight: '500',
+    color: '#000',
+  },
+
+  buttonText: {
+    fontSize: 21,
+    color: 'rgb(0,122,255)',
+  },
+
+  buttonTouchable: {
+    padding: 16,
+  },
+});
 
 
 export default QRScanner;
