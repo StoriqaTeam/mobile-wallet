@@ -44,22 +44,6 @@ class QRScanner extends React.Component {
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />
-        {/* <QRCodeScanner
-          checkAndroid6Permissions
-          onRead={this.onSuccess}
-          containerStyle={styles.containerStyle}
-          cameraStyle={styles.cameraStyle}
-          topContent={(
-            <Text style={styles.centerText}>
-              Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
-            </Text>
-          )}
-          bottomContent={(
-            <TouchableOpacity style={styles.buttonTouchable}>
-              <Text style={styles.buttonText}>OK. Got it!</Text>
-            </TouchableOpacity>
-          )}
-        /> */}
         <QRCodeScanner
           onRead={this.onSuccess}
         />

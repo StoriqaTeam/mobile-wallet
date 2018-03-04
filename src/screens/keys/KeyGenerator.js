@@ -14,7 +14,7 @@ import {
   Button,
   TextInput,
 } from 'react-native';
-// import Aes from 'react-native-aes-crypto';
+import Aes from 'react-native-aes-crypto';
 import RNSecureKeyStore from 'react-native-secure-key-store';
 import { Actions } from 'react-native-router-flux';
 import { QRSCANNER } from '../../constants';
@@ -81,8 +81,13 @@ export default class App extends Component<PropsType, StateType> {
     const iv = convertToHex(randomString(16));
     const key = await generateKeyByPin(pin, salt);
     // return Aes.encrypt(str, key, iv).then(cipher => { cipher, salt, iv });
+    console.log('### encrypt data: ', {str, key, iv})
     return Aes.encrypt(str, key, iv)
-      .then(cipher => ({ cipher, salt, iv }));
+      .then((cipher, err) => {
+        console.log('### encrypt cipher: ', cipher)
+        console.log('### encrypt err: ', err)
+        return { cipher, salt, iv }
+      });
   }
 
   decrypt = async (cipher, key, iv) => {
@@ -127,11 +132,12 @@ export default class App extends Component<PropsType, StateType> {
     pin: string,
   }) => {
     // const { publicKey, privateKey } = this.state;
-    console.log('*** storePrivateKey privateKey: ', privateKey);
-    this.encrypt({ privateKey, pin })
+    console.log('*** storePrivateKey data: ', { publicKey, privateKey, pin });
+    this.encrypt({ str: privateKey, pin })
       .then(result => {
         console.log('*** storePrivateKey result: ', result);
         const privateStr = [result.cipher, result.salt, result.iv].join('.');
+        console.log('*** storePrivateKey privateStr: ', privateStr);
         RNSecureKeyStore.set(publicKey, privateStr)
           .then((res) => {
             console.log('# privat key added to keystore: ', res);
@@ -243,15 +249,3 @@ function generateSalt() {
 const generateKeyByPin = async (pin, salt) => {
   return await Aes.pbkdf2(pin, salt);
 }
-
-const Aes = {
-  encrypt: async () => {
-    return null
-  },
-  decrypt: async () => {
-    return null;
-  },
-  pbkdf2: async () => {
-    return null;
-  }
-};
