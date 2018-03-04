@@ -16,8 +16,9 @@ import {
 } from 'react-native';
 import Aes from 'react-native-aes-crypto';
 import RNSecureKeyStore from 'react-native-secure-key-store';
+// import { RNCamera } from 'react-native-camera';
 
-const host = Platform.OS === 'ios' ? 'http://localhost:8545' : 'http://8adb6cae.ngrok.io';
+// const host = Platform.OS === 'ios' ? 'http://localhost:8545' : 'http://8adb6cae.ngrok.io';
 const Web3 = require('web3');
 // const web3 = new Web3(new Web3.providers.HttpProvider(host));
 const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/fbuouJvwnJedVLF6og25'));
