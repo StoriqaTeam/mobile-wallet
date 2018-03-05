@@ -3,7 +3,8 @@ import { View } from 'react-native';
 import { Router, Modal, Stack, Scene } from 'react-native-router-flux';
 import * as qr from './screens/qr';
 import * as keys from './screens/keys';
-import { ROOT, QRGENERATOR, QRSCANNER, KEYGENERATOR } from './constants';
+import * as accounts from './screens/accounts';
+import { ROOT, QRGENERATOR, QRSCANNER, KEYGENERATOR, ACCOUNTS, ACCOUNTDETAIL } from './constants';
 
 
 export default () => (
@@ -11,9 +12,11 @@ export default () => (
     <Router>
       <Modal hideNavBar>
         <Stack key={ROOT}>
-          <Scene key={KEYGENERATOR} hideNavBar initial component={keys.KeyGenerator} />
-          <Scene key={QRGENERATOR} hideNavBar component={qr.QRGenerator} />
-          <Scene key={QRSCANNER} hideNavBar component={qr.QRScanner} />
+          <Scene key={ACCOUNTS} initial component={accounts.AccountsList} />
+          <Scene key={ACCOUNTDETAIL} component={accounts.AccountDetail} />
+          <Scene key={KEYGENERATOR} component={keys.KeyGenerator} />
+          <Scene key={QRGENERATOR} component={qr.QRGenerator} />
+          <Scene key={QRSCANNER} component={qr.QRScanner} />
         </Stack>
       </Modal>
     </Router>

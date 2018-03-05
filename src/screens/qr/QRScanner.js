@@ -24,15 +24,13 @@ class QRScanner extends React.Component {
   }
 
   onSuccess = (e) => {
-    console.error('qr code result ', e);
+    console.log('qr code result', e);
     // Linking.openURL(e.data).catch(err => console.error('An error occured', err));
     this.goBack(e.data);
   }
 
   goBack = (data) => {
-    Actions.popTo(KEYGENERATOR);
-    // Actions.refresh({ qrtext: data });
-    Actions.refresh({ qrtext: data });
+    Actions.push(KEYGENERATOR, { qrText: data });
   }
 
   render() {
