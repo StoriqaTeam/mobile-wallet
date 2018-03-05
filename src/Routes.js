@@ -1,18 +1,21 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Router, Modal, Stack, Scene } from 'react-native-router-flux';
+import { ROOT, QRGENERATOR, QRSCANNER, KEYGENERATOR, ACCOUNTS, ACCOUNTDETAIL, ACCOUNTPIN } from '@constants';
+import { observer } from 'mobx-react/native'
+import store from '@store'
 import * as qr from './screens/qr';
 import * as keys from './screens/keys';
 import * as accounts from './screens/accounts';
-import { ROOT, QRGENERATOR, QRSCANNER, KEYGENERATOR, ACCOUNTS, ACCOUNTDETAIL } from './constants';
 
 
 export default () => (
   <View style={{ flex: 1 }}>
-    <Router>
+    <Router wrapBy={observer}>
       <Modal hideNavBar>
         <Stack key={ROOT}>
           <Scene key={ACCOUNTS} initial component={accounts.AccountsList} />
+          <Scene key={ACCOUNTPIN} component={accounts.AccountPin} />
           <Scene key={ACCOUNTDETAIL} component={accounts.AccountDetail} />
           <Scene key={KEYGENERATOR} component={keys.KeyGenerator} />
           <Scene key={QRGENERATOR} component={qr.QRGenerator} />

@@ -9,7 +9,5 @@ import {
 } from 'react-native';
 
 export default ({ account }) => (<View>
-    <View key={index}>
-      <Text>{account.accountState}</Text>
-    </View>
+  <Text>{account.accountState}</Text>
 </View>);

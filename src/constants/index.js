@@ -5,4 +5,5 @@ export const QRSCANNER = 'qrscanner';
 export const KEYGENERATOR = 'keygenerator';
 export const ACCOUNTS = 'accounts';
 export const ACCOUNTDETAIL = 'account-detail';
+export const ACCOUNTPIN = 'account-pin';
 
