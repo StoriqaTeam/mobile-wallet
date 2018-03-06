@@ -4,7 +4,7 @@
  */
 
 // @flow
-import './global';
+import '../../../global';
 import React, { Component } from 'react';
 import {
   Platform,
@@ -16,24 +16,34 @@ import {
 } from 'react-native';
 import Aes from 'react-native-aes-crypto';
 import RNSecureKeyStore from 'react-native-secure-key-store';
-// import { RNCamera } from 'react-native-camera';
+import { Actions } from 'react-native-router-flux';
+import { QRSCANNER } from '../../constants';
 
-// const host = Platform.OS === 'ios' ? 'http://localhost:8545' : 'http://8adb6cae.ngrok.io';
+
 const Web3 = require('web3');
-// const web3 = new Web3(new Web3.providers.HttpProvider(host));
+// const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
 const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/fbuouJvwnJedVLF6og25'));
+// const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/fbuouJvwnJedVLF6og25'));
 
 
-type PropsType = {};
+type PropsType = {
+  qrtext?: string,
+};
+
 type StateType = {
   publicKey: string,
   privateKey: string,
   pin: string,
+  grKeys?: {
+    publicKey: string,
+    privateKey: string,
+  },
 };
 
 export default class App extends Component<PropsType, StateType> {
-  constructor() {
-    super();
+  constructor(props: PropsType) {
+    super(props);
+    console.log('*** KeyGenerator constructor props: ', props);
     this.state = {
       publicKey: null,
       privateKey: null,
@@ -45,16 +55,39 @@ export default class App extends Component<PropsType, StateType> {
     web3.eth.getBlock('latest').then(console.log);
   }
 
+  componentWillReceiveProps(newProps) {
+    console.log('*** KeyGenerator componentWillReceiveProps newProps: ', newProps);
+    if (newProps.qrText) {
+      const qrArray = newProps.qrText.split('.');
+      this.setState({
+        grkeys: {
+          publicKey: qrArray[0],
+          privateKey: qrArray[1]
+        },
+      });
+    }
+  }
+
   onChangePin = (pin) => {
     this.setState({ pin });
   }
 
-  encrypt = async (str: string) => {
-    const { pin } = this.state;
+  encrypt = async ({ str, pin }: {
+    str: string,
+    pin: string,
+  }) => {
+    // const { pin } = this.state;
     const salt = generateSalt();
     const iv = convertToHex(randomString(16));
     const key = await generateKeyByPin(pin, salt);
-    return Aes.encrypt(str, key, iv).then(cipher => { cipher, salt, iv });
+    // return Aes.encrypt(str, key, iv).then(cipher => { cipher, salt, iv });
+    console.log('### encrypt data: ', {str, key, iv})
+    return Aes.encrypt(str, key, iv)
+      .then((cipher, err) => {
+        console.log('### encrypt cipher: ', cipher)
+        console.log('### encrypt err: ', err)
+        return { cipher, salt, iv }
+      });
   }
 
   decrypt = async (cipher, key, iv) => {
@@ -89,17 +122,22 @@ export default class App extends Component<PropsType, StateType> {
     const newAccount = web3.eth.accounts.create();
     console.log('*** App new account: ', newAccount);
     this.setState({ publicKey: newAccount.address, privateKey: newAccount.privateKey }); // this unsecure just for develop
-
     // const wallet = web3.eth.accounts.wallet.add(newAccount);
     // const result = web3.eth.accounts.privateKeyToAccount('0x9aabf3b04524979bebe58ace7139e0bb2aac2cf87644577ea7dd66a9a2cdab52');
   }
 
-  storePrivateKey = () => {
-    const { publicKey, privateKey } = this.state;
-    this.encrypt(privateKey)
+  storePrivateKey = ({ publicKey, privateKey, pin }: {
+    publicKey: string,
+    privateKey: string,
+    pin: string,
+  }) => {
+    // const { publicKey, privateKey } = this.state;
+    console.log('*** storePrivateKey data: ', { publicKey, privateKey, pin });
+    this.encrypt({ str: privateKey, pin })
       .then(result => {
         console.log('*** storePrivateKey result: ', result);
         const privateStr = [result.cipher, result.salt, result.iv].join('.');
+        console.log('*** storePrivateKey privateStr: ', privateStr);
         RNSecureKeyStore.set(publicKey, privateStr)
           .then((res) => {
             console.log('# privat key added to keystore: ', res);
@@ -111,7 +149,8 @@ export default class App extends Component<PropsType, StateType> {
   }
 
   render() {
-    const { pin, publicKey } = this.state;
+    const { pin, publicKey, privateKey, qrKeys } = this.state;
+    // console.log('*** KeyGenerator render props: ', this.props);
     return (
       <View style={{ marginTop: 30 }}>
         <Text style={{}}>
@@ -137,6 +176,16 @@ export default class App extends Component<PropsType, StateType> {
           title="New Account"
           color="#841584"
         />
+        <Button
+          onPress={() => Actions.push(QRSCANNER)}
+          title="Scan QR"
+          color="#841584"
+        />
+        {/* <Button
+          onPress={() => Actions.push(QRSCANNER)}
+          title="Save with QR code"
+          color="#841584"
+        /> */}
         <View style={{ alignItems: 'center' }}>
           <Text>Enter PIN</Text>
           <TextInput
@@ -150,10 +199,16 @@ export default class App extends Component<PropsType, StateType> {
           />
         </View>
         <Button
-          onPress={this.storePrivateKey}
+          onPress={() => this.storePrivateKey({ privateKey, publicKey, pin })}
           title="Store privateKey"
           color="#841584"
           disabled={!publicKey || !pin}
+        />
+        <Button
+          onPress={() => this.storePrivateKey({ privateKey: qrKeys.privateKey, publicKey: qrKeys.publicKey, pin })}
+          title="Store qr privateKey"
+          color="#841584"
+          disabled={!qrKeys || !qrKeys.privateKey || !qrKeys.publicKey}
         />
         <Button
           onPress={this.getPrivateKey}
