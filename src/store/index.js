@@ -44,11 +44,15 @@ class Store {
   // создание аккаунта
   createAccount = (pin): string => {
     const { address, privateKey } = this.web3.eth.accounts.create();
-    this.storePrivateKey({ address, privateKey, pin });
+    this._storePrivateKey({ address, privateKey, pin });
+  }
+
+  importAccount = ({ address, privateKey, pin }) => {
+    this._storePrivateKey({ address, privateKey, pin });
   }
 
   // сохраняем ключи в зашифрованном виде
-  storePrivateKey = ({ address, privateKey, pin }: {
+  _storePrivateKey = ({ address, privateKey, pin }: {
     address: string,
     pin: string,
   }) => {
@@ -68,7 +72,7 @@ class Store {
         })
         .catch(err => { console.log('*** storePrivatKey encrypt error: ', err) });
     } catch(err) {
-      console.log('### Store.storePrivateKey error: ', err);
+      console.error('### Store.storePrivateKey error: ', err);
     }
   }
 

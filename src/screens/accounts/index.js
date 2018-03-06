@@ -1,9 +1,9 @@
 import AccountsList from './AccountsList';
 import AccountDetail from './AccountDetail';
-import AccountPin from './AccountPin';
+import Pin from './Pin';
 
 export {
   AccountsList,
   AccountDetail,
-  AccountPin,
+  Pin,
 }

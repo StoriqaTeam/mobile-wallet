@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Router, Modal, Stack, Scene } from 'react-native-router-flux';
-import { ROOT, QRGENERATOR, QRSCANNER, KEYGENERATOR, ACCOUNTS, ACCOUNTDETAIL, ACCOUNTPIN } from '@constants';
+import { ROOT, QRGENERATOR, QRSCANNER, KEYGENERATOR, ACCOUNTS, ACCOUNTDETAIL, PIN } from '@constants';
 import { observer } from 'mobx-react/native'
 import store from '@store'
 import * as qr from './screens/qr';
@@ -15,12 +15,12 @@ export default () => (
       <Modal hideNavBar>
         <Stack key={ROOT}>
           <Scene key={ACCOUNTS} initial component={accounts.AccountsList} />
-          <Scene key={ACCOUNTPIN} component={accounts.AccountPin} />
           <Scene key={ACCOUNTDETAIL} component={accounts.AccountDetail} />
           <Scene key={KEYGENERATOR} component={keys.KeyGenerator} />
           <Scene key={QRGENERATOR} component={qr.QRGenerator} />
           <Scene key={QRSCANNER} component={qr.QRScanner} />
         </Stack>
+        <Scene key={PIN} component={accounts.Pin} />
       </Modal>
     </Router>
   </View>

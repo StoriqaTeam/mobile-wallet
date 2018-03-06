@@ -17,10 +17,8 @@ import {
 import Aes from 'react-native-aes-crypto';
 import { Actions } from 'react-native-router-flux';
 import store from '@store';
-import { KEYGENERATOR, ACCOUNTPIN } from '@constants';
+import { ACCOUNTS, KEYGENERATOR, PIN, QRSCANNER } from '@constants';
 import { AccountComponent } from '@components';
-
-
 
 
 type PropsType = {
@@ -37,29 +35,31 @@ type StateType = {
 }
 
 export default class Accounts extends Component<PropsType, StateType> {
-  constructor(props: PropsType) {
-    super(props);
-    console.log('### constructor props: ', props);
+  // пушим экран ввода Pin и передаем колбэк который вызывается
+  // в методе handleStoreKey Pin 
+  handleCreateAccount = () => {
+    Actions.push(PIN, { callback: this.newAccountPinCallback });
   }
 
   newAccountPinCallback = (pin: string) => {
-    console.log('### newAccountPinCallback pin: ', pin);
     store.createAccount(pin);
     Actions.pop();
-    // const isExist = store.isAsyncStorageIncludesAddress(address);
-    // store.storePrivateKey({ address, pin })
+  }
+  // пушим экран сканирования QR и передаем колбэк который вызывается
+  // в методе onSuccess QRScanner 
+  handleImportAccount = () => {
+    Actions.push(QRSCANNER, { callback: this.importAccountQRScannerCallback });
   }
 
-  handleCreateAccount = () => {
-    // const address = store.createAccount();
-    // console.log('*** handleCreateAccount account: ', address);
-    // Actions.push(ACCOUNTPIN, { address });
-    Actions.push(ACCOUNTPIN, { callback: this.newAccountPinCallback });
+  importAccountQRScannerCallback = (str, pin) => {
+    const qrArray = str.split('.');
+    const address = qrArray[0];
+    const privateKey = qrArray[1];
+    store.importAccount({ address, privateKey, pin });
+    Actions.push(ACCOUNTS);
   }
 
   render() {
-    // const { accounts } = this.state;
-    console.log('****** accounts this.state: ', { ...this.state });
     return (
       <View style={{ marginTop: 30 }}>
         <Text style={{}}>Accounts</Text>
@@ -69,7 +69,7 @@ export default class Accounts extends Component<PropsType, StateType> {
           color="#841584"
         />
         <Button
-          onPress={() => Actions.push(QRSCANNER)}
+          onPress={this.handleImportAccount}
           title="Import Account"
           color="#841584"
         />
