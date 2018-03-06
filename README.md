@@ -6,7 +6,7 @@
 * android не может слушать сервер на localhost поэтому портируем его (ngrok) и правим host в src/relay/relayEnvironment.js
 
 ### web3js
-гайд как стартануть проект https://gist.github.com/dougbacelar/29e60920d8fa1982535247563eb63766
+гайд как стартануть проект с web3js с нуля https://gist.github.com/dougbacelar/29e60920d8fa1982535247563eb63766
 
 ### react-native-aes
 * install react-native-aes from https://github.com/StoriqaTeam/react-native-aes.git#bugfix/pbkdf2-length

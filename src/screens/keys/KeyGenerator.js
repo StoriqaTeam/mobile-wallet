@@ -17,13 +17,14 @@ import {
 import Aes from 'react-native-aes-crypto';
 import RNSecureKeyStore from 'react-native-secure-key-store';
 import { Actions } from 'react-native-router-flux';
+import QRCode from 'react-native-qrcode';
 import { QRSCANNER } from '../../constants';
+import { randomString, convertToHex, generateSalt, generateKeyByPin } from '@utils';
 
 
 const Web3 = require('web3');
 // const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
 const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/fbuouJvwnJedVLF6og25'));
-// const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/fbuouJvwnJedVLF6og25'));
 
 
 type PropsType = {
@@ -31,22 +32,27 @@ type PropsType = {
 };
 
 type StateType = {
+  showQR: boolean,
   publicKey: string,
   privateKey: string,
   pin: string,
-  grKeys?: {
-    publicKey: string,
-    privateKey: string,
-  },
 };
 
 export default class App extends Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
-    console.log('*** KeyGenerator constructor props: ', props);
+    console.log('### constructor props: ', props);
+    let publicKey;
+    let privateKey;
+    if (props.qrText) {
+      const qrArray = props.qrText.split('.');
+      publicKey = qrArray[0];
+      privateKey = qrArray[1];
+    }
     this.state = {
-      publicKey: null,
-      privateKey: null,
+      showQR: false,
+      publicKey: publicKey || null,
+      privateKey: privateKey || null,
       pin: null,
     }
   }
@@ -55,39 +61,40 @@ export default class App extends Component<PropsType, StateType> {
     web3.eth.getBlock('latest').then(console.log);
   }
 
-  componentWillReceiveProps(newProps) {
-    console.log('*** KeyGenerator componentWillReceiveProps newProps: ', newProps);
-    if (newProps.qrText) {
-      const qrArray = newProps.qrText.split('.');
-      this.setState({
-        grkeys: {
-          publicKey: qrArray[0],
-          privateKey: qrArray[1]
-        },
-      });
-    }
+  // componentWillReceiveProps(newProps) {
+  //   console.log('*** componentWillReceiveProps newProps: ', newProps);
+  //   if (newProps.qrText) {
+  //     const qrArray = newProps.qrText.split('.');
+  //     const publicKey = qrArray[0];
+  //     const privateKey = qrArray[1];
+  //     console.log('*** componentWillReceiveProps qrArray: ', { publicKey, privateKey });
+  //     // this.updateKeys({ publicKey, privateKey })
+  //   }
+  // }
+
+  updateKeys = ({ publicKey, privateKey }) => {
+    this.setState({
+      publicKey,
+      privateKey,
+    });
   }
 
   onChangePin = (pin) => {
     this.setState({ pin });
   }
 
+  handleShowQR = () => {
+    this.setState({ showQR: !this.state.showQR })
+  }
+
   encrypt = async ({ str, pin }: {
     str: string,
     pin: string,
   }) => {
-    // const { pin } = this.state;
     const salt = generateSalt();
     const iv = convertToHex(randomString(16));
     const key = await generateKeyByPin(pin, salt);
-    // return Aes.encrypt(str, key, iv).then(cipher => { cipher, salt, iv });
-    console.log('### encrypt data: ', {str, key, iv})
-    return Aes.encrypt(str, key, iv)
-      .then((cipher, err) => {
-        console.log('### encrypt cipher: ', cipher)
-        console.log('### encrypt err: ', err)
-        return { cipher, salt, iv }
-      });
+    return Aes.encrypt(str, key, iv).then(cipher => ({ cipher, salt, iv }));
   }
 
   decrypt = async (cipher, key, iv) => {
@@ -120,7 +127,6 @@ export default class App extends Component<PropsType, StateType> {
 
   newAccount = async () => {
     const newAccount = web3.eth.accounts.create();
-    console.log('*** App new account: ', newAccount);
     this.setState({ publicKey: newAccount.address, privateKey: newAccount.privateKey }); // this unsecure just for develop
     // const wallet = web3.eth.accounts.wallet.add(newAccount);
     // const result = web3.eth.accounts.privateKeyToAccount('0x9aabf3b04524979bebe58ace7139e0bb2aac2cf87644577ea7dd66a9a2cdab52');
@@ -131,13 +137,9 @@ export default class App extends Component<PropsType, StateType> {
     privateKey: string,
     pin: string,
   }) => {
-    // const { publicKey, privateKey } = this.state;
-    console.log('*** storePrivateKey data: ', { publicKey, privateKey, pin });
     this.encrypt({ str: privateKey, pin })
       .then(result => {
-        console.log('*** storePrivateKey result: ', result);
         const privateStr = [result.cipher, result.salt, result.iv].join('.');
-        console.log('*** storePrivateKey privateStr: ', privateStr);
         RNSecureKeyStore.set(publicKey, privateStr)
           .then((res) => {
             console.log('# privat key added to keystore: ', res);
@@ -149,8 +151,8 @@ export default class App extends Component<PropsType, StateType> {
   }
 
   render() {
-    const { pin, publicKey, privateKey, qrKeys } = this.state;
-    // console.log('*** KeyGenerator render props: ', this.props);
+    const { pin, publicKey, privateKey, qrKeys, showQR } = this.state;
+    console.log('****** this.state: ', { ...this.state });
     return (
       <View style={{ marginTop: 30 }}>
         <Text style={{}}>
@@ -175,6 +177,12 @@ export default class App extends Component<PropsType, StateType> {
           onPress={this.newAccount}
           title="New Account"
           color="#841584"
+        />
+        <Button
+          onPress={this.handleShowQR}
+          title="Show QR"
+          color="#841584"
+          disabled={!publicKey || !privateKey}
         />
         <Button
           onPress={() => Actions.push(QRSCANNER)}
@@ -216,36 +224,15 @@ export default class App extends Component<PropsType, StateType> {
           color="#841584"
           disabled={!publicKey}
         />
+        {(showQR && publicKey && privateKey) &&
+          <QRCode
+            value={[publicKey, privateKey].join('.')}
+            size={300}
+            bgColor="purple"
+            fgColor="white"
+          />
+        }
       </View>
     );
   }
-}
-
-
-function randomString(length) {
-	var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-	var randomstring = '';
-	for (var i=0; i<length; i++) {
-		var rnum = Math.floor(Math.random() * chars.length);
-		randomstring += chars.substring(rnum, rnum+1);
-  }
-	return randomstring;
-}
-
-function convertToHex(str) {
-  var hex = '';
-  for(var i=0;i<str.length;i++) {
-      hex += ''+str.charCodeAt(i).toString(16);
-  }
-  console.log('*** str: ', str);
-  console.log('*** hex: ', hex);
-  return hex;
-}
-
-function generateSalt() {
-  return Math.random().toString(36).substring(2, 15);
-}
-
-const generateKeyByPin = async (pin, salt) => {
-  return await Aes.pbkdf2(pin, salt);
 }
