@@ -48,7 +48,9 @@ class Store {
   }
 
   importAccount = ({ address, privateKey, pin }) => {
-    this._storePrivateKey({ address, privateKey, pin });
+    if (!this.isAsyncStorageIncludesAddress(address)) {
+      this._storePrivateKey({ address, privateKey, pin });
+    }
   }
 
   // сохраняем ключи в зашифрованном виде

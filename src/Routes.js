@@ -20,7 +20,7 @@ export default () => (
           <Scene key={QRGENERATOR} component={qr.QRGenerator} />
           <Scene key={QRSCANNER} component={qr.QRScanner} />
         </Stack>
-        <Scene key={PIN} component={accounts.Pin} />
+        <Scene key={PIN} hideNavBar={false} component={accounts.Pin} />
       </Modal>
     </Router>
   </View>
