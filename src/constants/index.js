@@ -6,4 +6,5 @@ export const KEYGENERATOR = 'keygenerator';
 export const ACCOUNTS = 'accounts';
 export const ACCOUNTDETAIL = 'account-detail';
 export const PIN = 'pin';
+export const AMOUNT = 'AMOUNT';
 

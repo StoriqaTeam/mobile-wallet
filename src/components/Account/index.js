@@ -6,8 +6,19 @@ import {
   View,
   Button,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
+import styles from './styles';
 
-export default ({ account }) => (<View>
-  <Text>{account.accountState}</Text>
-</View>);
+
+export default ({ account, onPress }) => {
+  // console.log('*&*&** account: ', account)
+  return (
+    <TouchableOpacity style={styles.container} onPress={() => {
+      onPress(account);
+    }}>
+      <Text>{account.address}</Text>
+      <Text>{account.accountState}</Text>
+    </TouchableOpacity>
+  );
+}

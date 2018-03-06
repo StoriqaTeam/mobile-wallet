@@ -7,23 +7,20 @@ import { QRSCANNER } from '../../constants';
 
 
 class QRGenerator extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      text: 'http://facebook.github.io/react-native/',
-    };
-  }
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     text: 'http://facebook.github.io/react-native/',
+  //   };
+  // }
 
   render() {
+    const { text } = this.props;
     return (
-      <View>
+      <View style={{ margin: 16 }}>
         <Text>QRGenerator</Text>
-        <TextInput
-          onChangeText={text => this.setState({ text })}
-          value={this.state.text}
-        />
         <QRCode
-          value={this.state.text}
+          value={text}
           size={200}
           bgColor="purple"
           fgColor="white"
