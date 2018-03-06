@@ -47,16 +47,24 @@ class Accounts extends Component<PropsType, StateType> {
     store.createAccount(pin);
     Actions.pop();
   }
+
   // пушим экран сканирования QR и передаем колбэк который вызывается
   // в методе onSuccess QRScanner 
   handleImportAccount = () => {
     Actions.push(QRSCANNER, { callback: this.importAccountQRScannerCallback });
   }
 
-  importAccountQRScannerCallback = (str, pin) => {
+  importAccountQRScannerCallback = str => {
     const qrArray = str.split('.');
     const address = qrArray[0];
     const privateKey = qrArray[1];
+    Actions.push(PIN, {
+      callback: pin => this.importAccountPinCallback({ address, privateKey, pin }),
+    });
+  }
+
+  importAccountPinCallback = ({ address, privateKey, pin }) => {
+    console.log('&&&& importAccountPinCallback data: ', { address, privateKey, pin })
     store.importAccount({ address, privateKey, pin });
     Actions.push(ACCOUNTS);
   }

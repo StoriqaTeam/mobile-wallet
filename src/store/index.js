@@ -81,8 +81,10 @@ class Store {
     this._storePrivateKey({ address, privateKey, pin });
   }
 
-  importAccount = ({ address, privateKey, pin }) => {
-    if (!this.isAsyncStorageIncludesAddress(address)) {
+  importAccount = async ({ address, privateKey, pin }) => {
+    // console.log('((((( importAccount !isAsyncStorageIncludesAddress : ', !this.isAsyncStorageIncludesAddress(address))
+    const isExist = await this.isAsyncStorageIncludesAddress(address);
+    if (!isExist) {
       this._storePrivateKey({ address, privateKey, pin });
     }
   }
@@ -106,7 +108,6 @@ class Store {
   // проверяем есть ли ключи с таким же address
   isAsyncStorageIncludesAddress = async (address) => {
     const keys = await AsyncStorage.getAllKeys();
-    console.log('LENGTH', keys.length);
     return keys
       .filter(key => R.startsWith('@AccountAddress:', key))
       .map(key => key.split('@AccountAddress:')[1])
