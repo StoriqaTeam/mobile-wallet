@@ -36,7 +36,6 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* MobileWalletTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MobileWalletTests.m */; };
 		52BBD6E9FD214A6B97CA1B85 /* libRNSecureKeyStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4A6E22D3DD14FAFAC1482C9 /* libRNSecureKeyStore.a */; };
-		5DB7C90312664C28A309C235 /* libRNRSA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B72EBE1BBC4492EB350462C /* libRNRSA.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -85,6 +84,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = MobileWallet;
+		};
+		0E9AD4B5204EBA0200604B79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD302AA363204BF7AC2202C0 /* RCTAes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D980DD1BE9F11C00FA27E5;
+			remoteInfo = RCTAes;
+		};
+		0E9AD4B8204EBA0200604B79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B5A055B3145F4A699A219519 /* RCTAes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D980DD1BE9F11C00FA27E5;
+			remoteInfo = RCTAes;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -261,13 +274,6 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
-		E5A1D65D2046F2610082574D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2F87B883727146549E717F33 /* RNRSA.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BF40FFBD1F05EC4000DC4E95;
-			remoteInfo = RNRSA;
-		};
 		E5A1D6602046F2610082574D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D77A4AE67224BD4991F0CD1 /* RNSecureKeyStore.xcodeproj */;
@@ -377,7 +383,6 @@
 		2D02E47B1E0B4A5D006451C7 /* MobileWallet-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MobileWallet-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* MobileWallet-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MobileWallet-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F87B883727146549E717F33 /* RNRSA.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNRSA.xcodeproj; path = "../node_modules/react-native-rsa-native/ios/RNRSA.xcodeproj"; sourceTree = "<group>"; };
 		31E777A6E8274F768C41937A /* libRCTAes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAes.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		76B856ABEE1A4500B40BC05E /* RNCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; };
@@ -422,7 +427,6 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				1C6514A8179940B7A3FA9C1B /* libRCTAes.a in Frameworks */,
 				52BBD6E9FD214A6B97CA1B85 /* libRNSecureKeyStore.a in Frameworks */,
-				5DB7C90312664C28A309C235 /* libRNRSA.a in Frameworks */,
 				E6392F08653F439DA491091F /* libRNCamera.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,6 +513,22 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0E9AD4AD204EBA0200604B79 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E9AD4B9204EBA0200604B79 /* libRCTAes.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0E9AD4AF204EBA0200604B79 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E9AD4B6204EBA0200604B79 /* libRCTAes.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
@@ -611,7 +631,6 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				85F5AB6FBA7B4EFF86399BA8 /* RCTAes.xcodeproj */,
 				7D77A4AE67224BD4991F0CD1 /* RNSecureKeyStore.xcodeproj */,
-				2F87B883727146549E717F33 /* RNRSA.xcodeproj */,
 				A97FDD0AD3D54EE88DF9BC4E /* RCTAes.xcodeproj */,
 				76B856ABEE1A4500B40BC05E /* RNCamera.xcodeproj */,
 				DD302AA363204BF7AC2202C0 /* RCTAes.xcodeproj */,
@@ -668,14 +687,6 @@
 			isa = PBXGroup;
 			children = (
 				E5A1D6612046F2610082574D /* libRNSecureKeyStore.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		E5A1D65A2046F2610082574D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E5A1D65E2046F2610082574D /* libRNRSA.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -842,6 +853,14 @@
 					ProjectRef = A97FDD0AD3D54EE88DF9BC4E /* RCTAes.xcodeproj */;
 				},
 				{
+					ProductGroup = 0E9AD4AF204EBA0200604B79 /* Products */;
+					ProjectRef = DD302AA363204BF7AC2202C0 /* RCTAes.xcodeproj */;
+				},
+				{
+					ProductGroup = 0E9AD4AD204EBA0200604B79 /* Products */;
+					ProjectRef = B5A055B3145F4A699A219519 /* RCTAes.xcodeproj */;
+				},
+				{
 					ProductGroup = 5E91572E1DD0AC6500FF2AA8 /* Products */;
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
 				},
@@ -888,10 +907,6 @@
 				{
 					ProductGroup = E5A1D6D720472F8E0082574D /* Products */;
 					ProjectRef = 76B856ABEE1A4500B40BC05E /* RNCamera.xcodeproj */;
-				},
-				{
-					ProductGroup = E5A1D65A2046F2610082574D /* Products */;
-					ProjectRef = 2F87B883727146549E717F33 /* RNRSA.xcodeproj */;
 				},
 				{
 					ProductGroup = E5A1D6582046F2610082574D /* Products */;
@@ -942,6 +957,20 @@
 			fileType = archive.ar;
 			path = libRCTVibration.a;
 			remoteRef = 00C302E31ABCB9EE00DB3ED1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0E9AD4B6204EBA0200604B79 /* libRCTAes.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTAes.a;
+			remoteRef = 0E9AD4B5204EBA0200604B79 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0E9AD4B9204EBA0200604B79 /* libRCTAes.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTAes.a;
+			remoteRef = 0E9AD4B8204EBA0200604B79 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {
@@ -1110,13 +1139,6 @@
 			fileType = archive.ar;
 			path = libRCTBlob.a;
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		E5A1D65E2046F2610082574D /* libRNRSA.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNRSA.a;
-			remoteRef = E5A1D65D2046F2610082574D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E5A1D6612046F2610082574D /* libRNSecureKeyStore.a */ = {
