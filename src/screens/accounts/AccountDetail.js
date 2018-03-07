@@ -34,13 +34,19 @@ export default class Account extends Component<PropsType, StateType> {
     Actions.push(AMOUNT, { callback: this.onCreatePaymentCallback });
   }
 
-  onCreateTransactionCallback = text => {
+  onCreateTransactionCallback = str => {
     const { account } = this.props;
-    console.log('**** ON onCreateTransactionCallback qr text: ', text);
+    console.log('**** ON onCreateTransactionCallback qr text: ', str);
   }
 
   handleCreateTransaction = () => {
-    Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
+    // commit Action.push for development and force onCreateTransactionCallback
+    // Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
+
+    // start remove this block
+    const str = '0x134c2658d60a06333FF0e5CE47cEaC800b3Aa608.1';
+    this.onCreateTransactionCallback(str);
+    // end remove this block
   }
 
   render() {
