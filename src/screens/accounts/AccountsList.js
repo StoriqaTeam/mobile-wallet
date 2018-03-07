@@ -11,8 +11,6 @@ import {
   Text,
   View,
   ScrollView,
-  Button,
-  TextInput,
 } from 'react-native';
 import {observer} from "mobx-react";
 import Aes from 'react-native-aes-crypto';
@@ -20,6 +18,8 @@ import { Actions } from 'react-native-router-flux';
 import store from '@store';
 import { ACCOUNTS, ACCOUNTDETAIL, KEYGENERATOR, PIN, QRSCANNER, AMOUNT, QRGENERATOR } from '@constants';
 import { AccountComponent } from '@components';
+import { Button, TextInput } from '@components/common';
+import { commonStyles } from '@styles';
 
 
 type PropsType = {
@@ -74,30 +74,32 @@ class Accounts extends Component<PropsType, StateType> {
   }
 
   render() {
-    console.log('$$$ store.accounts: ', store.accounts.slice());
     return (
-      <View style={{ marginTop: 30 }}>
-        <Text style={{}}>Accounts</Text>
-        <Button
-          onPress={this.handleCreateAccount}
-          title="New Account"
-          color="#841584"
-        />
-        <Button
-          onPress={this.handleImportAccount}
-          title="Import Account"
-          color="#841584"
-        />
-        <Button
-          onPress={store.fetchBalance}
-          title="fetch balance"
-          color="#841584"
-        />
-        <ScrollView>
-          {store.accounts.length !== 0 &&
+      <View style={commonStyles.containerView}>
+        <View style={commonStyles.view}>
+          <Text style={commonStyles.viewTitle}>Accounts</Text>
+          <Button
+            onClick={this.handleCreateAccount}
+            text="New Account"
+            type="default"
+          />
+          <Button
+            onClick={this.handleImportAccount}
+            text="Import Account"
+            type="danger"
+          />
+          <Button
+            onClick={store.fetchBalance}
+            text="fetch balance"
+            type="default"
+            isLight
+          />
+          <ScrollView>
+            {store.accounts.length !== 0 &&
             <AccountsList accounts={store.accounts} onPress={this.onAccountPress} />
-          }
-        </ScrollView>
+            }
+          </ScrollView>
+        </View>
       </View>
     );
   }

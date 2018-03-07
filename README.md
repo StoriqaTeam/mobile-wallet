@@ -1,5 +1,8 @@
 # STQ exchanger
 
+## Prerequisites
+* Install `crypto` for RN: https://github.com/mvayngrib/react-native-crypto.
+
 ## Troubleshooting
 
 ### Ngrok
