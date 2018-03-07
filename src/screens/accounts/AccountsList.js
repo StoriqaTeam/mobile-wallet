@@ -11,7 +11,6 @@ import {
   Text,
   View,
   ScrollView,
-  Button,
   TextInput,
 } from 'react-native';
 import {observer} from "mobx-react";
@@ -20,6 +19,7 @@ import { Actions } from 'react-native-router-flux';
 import store from '@store';
 import { ACCOUNTS, ACCOUNTDETAIL, KEYGENERATOR, PIN, QRSCANNER, AMOUNT, QRGENERATOR } from '@constants';
 import { AccountComponent } from '@components';
+import { Button } from '@components/common';
 
 
 type PropsType = {
@@ -79,19 +79,20 @@ class Accounts extends Component<PropsType, StateType> {
       <View style={{ marginTop: 30 }}>
         <Text style={{}}>Accounts</Text>
         <Button
-          onPress={this.handleCreateAccount}
-          title="New Account"
-          color="#841584"
+          onClick={this.handleCreateAccount}
+          text="New Account"
+          type="default"
         />
         <Button
-          onPress={this.handleImportAccount}
-          title="Import Account"
-          color="#841584"
+          onClick={this.handleImportAccount}
+          text="Import Account"
+          type="danger"
         />
         <Button
-          onPress={store.fetchBalance}
-          title="fetch balance"
-          color="#841584"
+          onClick={store.fetchBalance}
+          text="fetch balance"
+          type="default"
+          isLight
         />
         <ScrollView>
           {store.accounts.length !== 0 &&
