@@ -34,6 +34,11 @@ export const encrypt = async ({ str, pin }) => {
   return Aes.encrypt(str, key, iv).then(cipher => ({ cipher, salt, iv }));
 }
 
+
+export const decrypt = async ({ cipher, key, iv }) => {
+  return await Aes.decrypt(cipher, key, iv);
+}
+
 export const fetchQuery = async (url) => {
   const response = await fetch(url, { // eslint-disable-line
     method: 'GET',

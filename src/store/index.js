@@ -11,10 +11,10 @@ import Account from './Account';
 
 const Web3 = require('web3');
 // const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-function offlineWeb3() { 
+export function offlineWeb3() { 
   return new Web3();
 }
-function onlineWeb3() { 
+export function onlineWeb3() { 
   return new Web3(new Web3.providers.HttpProvider('https://kovan.infura.io/fbuouJvwnJedVLF6og25'));
 }
 
@@ -82,7 +82,6 @@ class Store {
   }
 
   importAccount = async ({ address, privateKey, pin }) => {
-    // console.log('((((( importAccount !isAsyncStorageIncludesAddress : ', !this.isAsyncStorageIncludesAddress(address))
     const isExist = await this.isAsyncStorageIncludesAddress(address);
     if (!isExist) {
       this._storePrivateKey({ address, privateKey, pin });
@@ -94,6 +93,7 @@ class Store {
     address: string,
     pin: string,
   }) => {
+    // console.log('### Store.storePrivateKey privateKey: ', privateKey);
     try {
       const encrypted = await encrypt({ str: privateKey, pin });
       const privateStr = [encrypted.cipher, encrypted.salt, encrypted.iv].join('.');

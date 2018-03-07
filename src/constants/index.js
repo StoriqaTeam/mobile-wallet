@@ -7,4 +7,6 @@ export const ACCOUNTS = 'accounts';
 export const ACCOUNTDETAIL = 'account-detail';
 export const PIN = 'pin';
 export const AMOUNT = 'AMOUNT';
+export const SUCCESS = 'SUCCESS';
+export const ERROR = 'ERROR';
 

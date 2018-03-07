@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import Aes from 'react-native-aes-crypto';
 import { Actions } from 'react-native-router-flux';
-import { KEYGENERATOR, QRGENERATOR, AMOUNT, QRSCANNER } from '../../constants';
+import { KEYGENERATOR, QRGENERATOR, AMOUNT, QRSCANNER, PIN, SUCCESS, ERROR } from '@constants';
 import AccountComponent from '../../components/Account';
 
 
@@ -24,19 +24,28 @@ export default class Account extends Component<PropsType, StateType> {
 
   onCreatePaymentCallback = (amount) => {
     const { account } = this.props;
-    console.log('**** ON create payment amount: ', amount);
     Actions.push(QRGENERATOR, { text: `${account.address}.${amount}` });
   }
 
   handleCreatePayment = () => {
     const { account } = this.props;
-    console.log('**** ON PRESS account: ', account);
     Actions.push(AMOUNT, { callback: this.onCreatePaymentCallback });
   }
 
-  onCreateTransactionCallback = str => {
+  onGetPin = async ({ account, paymentStr, pin }) => {
+    const result = await account.createTransaction({ paymentStr, pin });
+    if (result) {
+      Actions.push(SUCCESS, { result })
+    } else {
+      Actions.push(ERROR)
+    }
+  }
+
+  onCreateTransactionCallback = paymentStr => {
     const { account } = this.props;
-    console.log('**** ON onCreateTransactionCallback qr text: ', str);
+    console.log('**** ON onCreateTransactionCallback qr text: ', paymentStr);
+    // console.log('**** ON onCreateTransactionCallback account: ', account);
+    Actions.push(PIN, { callback: pin => this.onGetPin({ account, paymentStr, pin })});
   }
 
   handleCreateTransaction = () => {
