@@ -3,6 +3,7 @@ package com.mobilewallet;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.bitgo.randombytes.RandomBytesPackage;
 import com.tectiv3.aes.RCTAesPackage;
 import org.reactnative.camera.RNCameraPackage;
 // import com.tectiv3.aes.RCTAesPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RandomBytesPackage(),
             new RCTAesPackage(), // tested successfull
             new RNSecureKeyStorePackage(), // tested successfull
             new RNCameraPackage()
