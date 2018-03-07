@@ -11,7 +11,6 @@ import {
   Text,
   View,
   ScrollView,
-  TextInput,
 } from 'react-native';
 import {observer} from "mobx-react";
 import Aes from 'react-native-aes-crypto';
@@ -19,7 +18,7 @@ import { Actions } from 'react-native-router-flux';
 import store from '@store';
 import { ACCOUNTS, ACCOUNTDETAIL, KEYGENERATOR, PIN, QRSCANNER, AMOUNT, QRGENERATOR } from '@constants';
 import { AccountComponent } from '@components';
-import { Button } from '@components/common';
+import { Button, TextInput } from '@components/common';
 import { commonStyles } from '@styles';
 
 
