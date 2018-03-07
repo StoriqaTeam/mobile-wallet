@@ -22,11 +22,7 @@ type PropsType = {
 class QRScanner extends React.Component<PorpsType> {
   onSuccess = (e) => {
     const { callback } = this.props;
-    Actions.push(PIN, {
-      callback: pin => {
-        callback(e.data, pin)
-      }
-    });
+    callback(e.data);
   }
 
   render() {

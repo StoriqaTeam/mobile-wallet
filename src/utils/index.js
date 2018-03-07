@@ -33,3 +33,19 @@ export const encrypt = async ({ str, pin }) => {
   const key = await generateKeyByPin(pin, salt);
   return Aes.encrypt(str, key, iv).then(cipher => ({ cipher, salt, iv }));
 }
+
+export const fetchQuery = async (url) => {
+  const response = await fetch(url, { // eslint-disable-line
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      // Authorization: `Bearer ${token}`,
+    },
+    // credentials: 'include',
+    // body: JSON.stringify({
+    //   query: operation.text, // GraphQL text from input
+    //   variables,
+    // }),
+  });
+  return await response.json();
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Router, Modal, Stack, Scene } from 'react-native-router-flux';
-import { ROOT, QRGENERATOR, QRSCANNER, KEYGENERATOR, ACCOUNTS, ACCOUNTDETAIL, PIN } from '@constants';
+import { ROOT, QRGENERATOR, QRSCANNER, KEYGENERATOR, ACCOUNTS, ACCOUNTDETAIL, PIN, AMOUNT } from '@constants';
 import { observer } from 'mobx-react/native'
 import store from '@store'
 import * as qr from './screens/qr';
@@ -21,6 +21,7 @@ export default () => (
           <Scene key={QRSCANNER} component={qr.QRScanner} />
         </Stack>
         <Scene key={PIN} hideNavBar={false} component={accounts.Pin} />
+        <Scene key={AMOUNT} hideNavBar={false} component={accounts.Pin} />
       </Modal>
     </Router>
   </View>

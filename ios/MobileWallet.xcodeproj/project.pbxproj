@@ -295,6 +295,20 @@
 			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
 			remoteInfo = RNCamera;
 		};
+		E5D732F3204FDAAE0063919B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD302AA363204BF7AC2202C0 /* RCTAes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D980DD1BE9F11C00FA27E5;
+			remoteInfo = RCTAes;
+		};
+		E5D732F6204FDAAE0063919B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B5A055B3145F4A699A219519 /* RCTAes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D980DD1BE9F11C00FA27E5;
+			remoteInfo = RCTAes;
+		};
 		E5E3466D2045A40800789DF8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -703,6 +717,22 @@
 			isa = PBXGroup;
 			children = (
 				E5A1D6DB20472F8E0082574D /* libRNCamera.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E5D732EB204FDAAE0063919B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E5D732F7204FDAAE0063919B /* libRCTAes.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E5D732ED204FDAAE0063919B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E5D732F4204FDAAE0063919B /* libRCTAes.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1160,6 +1190,20 @@
 			fileType = archive.ar;
 			path = libRNCamera.a;
 			remoteRef = E5A1D6DA20472F8E0082574D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E5D732F4204FDAAE0063919B /* libRCTAes.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTAes.a;
+			remoteRef = E5D732F3204FDAAE0063919B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E5D732F7204FDAAE0063919B /* libRCTAes.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTAes.a;
+			remoteRef = E5D732F6204FDAAE0063919B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E5E3466E2045A40800789DF8 /* libjsinspector.a */ = {

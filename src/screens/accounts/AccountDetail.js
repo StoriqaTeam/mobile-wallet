@@ -15,60 +15,58 @@ import {
   TextInput,
 } from 'react-native';
 import Aes from 'react-native-aes-crypto';
-// import RNSecureKeyStore from 'react-native-secure-key-store';
 import { Actions } from 'react-native-router-flux';
-import { KEYGENERATOR } from '../../constants';
+import { KEYGENERATOR, QRGENERATOR, AMOUNT, QRSCANNER } from '../../constants';
 import AccountComponent from '../../components/Account';
-// import QRCode from 'react-native-qrcode';
-// import { QRSCANNER } from '../../constants';
 
 
-const Web3 = require('web3');
-// const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/fbuouJvwnJedVLF6og25'));
+export default class Account extends Component<PropsType, StateType> {
 
+  onCreatePaymentCallback = (amount) => {
+    const { account } = this.props;
+    console.log('**** ON create payment amount: ', amount);
+    Actions.push(QRGENERATOR, { text: `${account.address}.${amount}` });
+  }
 
-type PropsType = {
-}
+  handleCreatePayment = () => {
+    const { account } = this.props;
+    console.log('**** ON PRESS account: ', account);
+    Actions.push(AMOUNT, { callback: this.onCreatePaymentCallback });
+  }
 
-type AccountType = {
-  publicKey: string,
-  privateKey: string,
-  accountState: number,
-}
+  onCreateTransactionCallback = str => {
+    const { account } = this.props;
+    console.log('**** ON onCreateTransactionCallback qr text: ', str);
+  }
 
-type StateType = {
-  accounts: AccountType[],
-}
+  handleCreateTransaction = () => {
+    // commit Action.push for development and force onCreateTransactionCallback
+    // Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
 
-export default class Accounts extends Component<PropsType, StateType> {
-  constructor(props: PropsType) {
-    super(props);
-    console.log('### constructor props: ', props);
-    this.state = {
-      accounts: [],
-    }
+    // start remove this block
+    const str = '0x134c2658d60a06333FF0e5CE47cEaC800b3Aa608.1';
+    this.onCreateTransactionCallback(str);
+    // end remove this block
   }
 
   render() {
-    const { accounts } = this.state;
-    console.log('****** accounts this.state: ', { ...this.state });
+    const { account } = this.props;
+    console.log('****** account this.props: ', { ...this.props });
     return (
       <View style={{ marginTop: 30 }}>
-        <Text style={{}}>Accounts</Text>
+        <Text style={{}}>Account</Text>
+        <Text style={{}}>{account.address}</Text>
+        <Text style={{}}>{account.balance}</Text>
         <Button
-          onPress={() => Actions.push(KEYGENERATOR)}
-          title="New Account"
+          onPress={this.handleCreatePayment}
+          title="Create Pyament"
           color="#841584"
         />
         <Button
-          onPress={() => Actions.push(QRSCANNER)}
-          title="Import Account"
+          onPress={this.handleCreateTransaction}
+          title="Create Transaction by QR"
           color="#841584"
         />
-        {accounts.length !== 0 &&
-          <AccountComponent account={account} />
-        }
       </View>
     );
   }

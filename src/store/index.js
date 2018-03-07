@@ -1,11 +1,12 @@
 // @flow
 import { AsyncStorage } from 'react-native';
-import { observable, autorun, action, computed } from 'mobx'; // eslint-disable-line
+import { toJS, observable, autorun, action, computed } from 'mobx'; // eslint-disable-line
 import { Actions } from 'react-native-router-flux'; // eslint-disable-line
 import RNSecureKeyStore from 'react-native-secure-key-store';
 import Aes from 'react-native-aes-crypto';
-import { randomString, convertToHex, generateSalt, generateKeyByPin, encrypt } from '@utils';
+import { fetchQuery, randomString, convertToHex, generateSalt, generateKeyByPin, encrypt } from '@utils';
 import R from 'ramda'; // eslint-disable-line
+import Account from './Account';
 // import { ROOT, PROFILE } from '../constants';
 
 const Web3 = require('web3');
@@ -19,13 +20,20 @@ function onlineWeb3() {
 
 class Store {
   @observable accounts = [];
+  @observable addresses = [];
 
   constructor() {
     this.web3 = offlineWeb3();
-    
+    this.updateAddresses();
     autorun(() => {
-      console.log('### Store autorun Actions.currentScene: ', Actions.currentScene);
+      // console.log('### Store autorun Actions.currentScene: ', Actions.currentScene);
+      console.log('### Store autorun addresses: ', toJS(this.addresses));
+      this.updateAccounts();
     });
+    setInterval(() => {
+      this.updateAccounts();
+      // this.accounts.forEach(this.updateAccounts);
+    }, 15000);
     // web3.eth.getBlock('latest').then(result => {
     //   console.log('### store web3 getBlock result: ', result);
     // });
@@ -41,38 +49,57 @@ class Store {
     // console.log('*** populateAccounts wallet: ', web3.eth.accounts.wallet)
   }
 
+  fetchBalance = async (address) => {
+    const token = 'I8ZWEG466U3WV3EAKH4CJHJCBAYNVR2HPK';
+    const contractAddress = '0xec827D2c2493ca90cC237f4F314979973f17F5A8';
+    const url = `https://api-kovan.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${contractAddress}&address=${address}&tag=latest&apikey=${token}`;
+    const result = await fetchQuery(url);
+    const devider = Math.pow(10, 18);
+    const converted = parseInt(result.result, 10) / Math.pow(10, 18);
+    return converted;
+  }
+
+  updateAccounts = () => {
+    const promises = this.addresses.map(address => {
+      return this.fetchBalance(address)
+        .then(balance => new Account({ address, balance }));
+    });
+    Promise.all(promises).then(accounts => this.accounts.replace(accounts));
+  }
+
+  updateAddresses = async () => {
+    let keys = await AsyncStorage.getAllKeys();
+    keys = keys
+      .filter(key => R.startsWith('@AccountAddress:', key))
+      .map(key => key.split('@AccountAddress:')[1]);
+    this.addresses.replace(keys);
+  }
+
   // создание аккаунта
   createAccount = (pin): string => {
     const { address, privateKey } = this.web3.eth.accounts.create();
     this._storePrivateKey({ address, privateKey, pin });
   }
 
-  importAccount = ({ address, privateKey, pin }) => {
-    if (!this.isAsyncStorageIncludesAddress(address)) {
+  importAccount = async ({ address, privateKey, pin }) => {
+    // console.log('((((( importAccount !isAsyncStorageIncludesAddress : ', !this.isAsyncStorageIncludesAddress(address))
+    const isExist = await this.isAsyncStorageIncludesAddress(address);
+    if (!isExist) {
       this._storePrivateKey({ address, privateKey, pin });
     }
   }
 
   // сохраняем ключи в зашифрованном виде
-  _storePrivateKey = ({ address, privateKey, pin }: {
+  _storePrivateKey = async ({ address, privateKey, pin }: {
     address: string,
     pin: string,
   }) => {
     try {
-      encrypt({ str: privateKey, pin })
-        .then(result => {
-          const privateStr = [result.cipher, result.salt, result.iv].join('.');
-          RNSecureKeyStore.set(address, privateStr)
-            .then((res) => {
-              console.log('# privat key added to keystore: ', res);
-              /* сохраняем ключ в AsyncStorage для удобства перебора
-              по ключам (isAsyncStorageIncludesAddress) */
-              AsyncStorage.setItem(`@AccountAddress:${address}`, '');
-            }, (err) => {
-              console.log('# error when adding private key to keystore: ', err);
-            });
-        })
-        .catch(err => { console.log('*** storePrivatKey encrypt error: ', err) });
+      const encrypted = await encrypt({ str: privateKey, pin });
+      const privateStr = [encrypted.cipher, encrypted.salt, encrypted.iv].join('.');
+      const stored = await RNSecureKeyStore.set(address, privateStr);
+      const storedtoAS = await AsyncStorage.setItem(`@AccountAddress:${address}`, '');
+      this.updateAddresses();
     } catch(err) {
       console.error('### Store.storePrivateKey error: ', err);
     }
@@ -81,7 +108,6 @@ class Store {
   // проверяем есть ли ключи с таким же address
   isAsyncStorageIncludesAddress = async (address) => {
     const keys = await AsyncStorage.getAllKeys();
-    console.log('LENGTH', keys.length);
     return keys
       .filter(key => R.startsWith('@AccountAddress:', key))
       .map(key => key.split('@AccountAddress:')[1])
