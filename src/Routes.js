@@ -18,6 +18,7 @@ import * as accounts from './screens/accounts';
 import AccountsListNavbar from '@components/Account/AccountsListNavbar';
 import AccountDetailNavbar from '@components/AccountDetail/AccountDetailNavbar';
 import PinNavbar from '@components/Pin/PinNavbar';
+import AmountNavbar from '@components/Amount/AmountNavbar';
 
 export default () => (
   <View style={{ flex: 1 }}>
@@ -31,7 +32,7 @@ export default () => (
           <Scene key={QRSCANNER} component={qr.QRScanner} />
         </Stack>
         <Scene key={PIN} hideNavBar={false} component={accounts.Pin} navBar={PinNavbar} />
-        <Scene key={AMOUNT} hideNavBar={false} component={accounts.Pin} />
+        <Scene key={AMOUNT} hideNavBar={false} component={accounts.Amount} navBar={AmountNavbar} />
       </Modal>
     </Router>
   </View>
