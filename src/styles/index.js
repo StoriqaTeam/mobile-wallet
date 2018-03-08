@@ -8,9 +8,10 @@ export const commonStyles = StyleSheet.create({
   containerView: {
     backgroundColor: '#fff',
     height: '100%',
+    display: 'flex',
   },
   view: {
-    marginTop: 30,
+    marginTop: 13,
   },
   viewTitle: {
     fontSize: 36,
