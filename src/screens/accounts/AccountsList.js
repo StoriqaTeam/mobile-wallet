@@ -44,7 +44,7 @@ class Accounts extends Component<PropsType, StateType> {
   // в методе handleStoreKey Pin 
   handleCreateAccount = () => {
     Actions.push(PIN, { callback: this.newAccountPinCallback });
-  }
+  };
 
   newAccountPinCallback = (pin: string) => {
     store.createAccount(pin);

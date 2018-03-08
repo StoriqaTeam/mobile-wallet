@@ -8,17 +8,15 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import Navbar from '@components/common/Navbar';
 
 const AccountsListNavbar = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>
-        My wallets
-      </Text>
+    <Navbar title="My wallets">
       <TouchableOpacity style={styles.addIcon} onPress={() => {}}>
         <Image source={require('./img/navbar_icon_add.png')} />
       </TouchableOpacity>
-    </View>
+    </Navbar>
   );
 };
 
