@@ -19,6 +19,7 @@ import AccountsListNavbar from '@components/Account/AccountsListNavbar';
 import AccountDetailNavbar from '@components/AccountDetail/AccountDetailNavbar';
 import PinNavbar from '@components/Pin/PinNavbar';
 import AmountNavbar from '@components/Amount/AmountNavbar';
+import QRGeneratorNavbar from '@components/QRGenerator/QRGeneratorNavbar';
 
 export default () => (
   <View style={{ flex: 1 }}>
@@ -26,9 +27,9 @@ export default () => (
       <Modal hideNavBar>
         <Stack key={ROOT}>
           <Scene key={ACCOUNTS} initial={false} component={accounts.AccountsList} navBar={AccountsListNavbar} />
-          <Scene key={ACCOUNTDETAIL} initial component={accounts.AccountDetail} navBar={AccountDetailNavbar} />
+          <Scene key={ACCOUNTDETAIL} component={accounts.AccountDetail} navBar={AccountDetailNavbar} />
           <Scene key={KEYGENERATOR} component={keys.KeyGenerator} />
-          <Scene key={QRGENERATOR} component={qr.QRGenerator} />
+          <Scene key={QRGENERATOR} initial component={qr.QRGenerator} navBar={QRGeneratorNavbar} />
           <Scene key={QRSCANNER} component={qr.QRScanner} />
         </Stack>
         <Scene key={PIN} hideNavBar={false} component={accounts.Pin} navBar={PinNavbar} />
