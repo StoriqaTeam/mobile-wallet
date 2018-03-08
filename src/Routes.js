@@ -16,6 +16,7 @@ import * as qr from './screens/qr';
 import * as keys from './screens/keys';
 import * as accounts from './screens/accounts';
 import AccountsListNavbar from '@components/Account/AccountsListNavbar';
+import AccountDetailNavbar from '@components/AccountDetail/AccountDetailNavbar';
 import PinNavbar from '@components/Pin/PinNavbar';
 
 export default () => (
@@ -23,8 +24,8 @@ export default () => (
     <Router wrapBy={observer}>
       <Modal hideNavBar>
         <Stack key={ROOT}>
-          <Scene key={ACCOUNTS} initial component={accounts.AccountsList} navBar={AccountsListNavbar} />
-          <Scene key={ACCOUNTDETAIL} component={accounts.AccountDetail} />
+          <Scene key={ACCOUNTS} initial={false} component={accounts.AccountsList} navBar={AccountsListNavbar} />
+          <Scene key={ACCOUNTDETAIL} initial component={accounts.AccountDetail} navBar={AccountDetailNavbar} />
           <Scene key={KEYGENERATOR} component={keys.KeyGenerator} />
           <Scene key={QRGENERATOR} component={qr.QRGenerator} />
           <Scene key={QRSCANNER} component={qr.QRScanner} />

@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontFamily: 'Helvetica',
     alignSelf: 'center',
-    marginTop: 31,
+    marginTop: 33,
   },
   addIcon: {
     height: 26,

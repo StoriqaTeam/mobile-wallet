@@ -33,6 +33,8 @@ const Button = (props: PropsType) => {
   switch (props.icon) {
     case 'add': icon = (<Image style={{ backgroundColor: 'transparent', position: 'absolute', top: 10, left: 13 }} source={require('./icons/button_icon_add.png')} />); break;
     case 'import': icon = (<Image style={{ backgroundColor: 'transparent', position: 'absolute', top: 10, left: 13 }} source={require('./icons/button_icon_import.png')} />); break;
+    case 'arrow_down': icon = (<Image style={{ backgroundColor: 'transparent', position: 'absolute', top: 10, left: 13 }} source={require('./icons/button_icon_arrow_down.png')} />); break;
+    case 'arrow_up': icon = (<Image style={{ backgroundColor: 'transparent', position: 'absolute', top: 10, left: 13 }} source={require('./icons/button_icon_arrow_up.png')} />); break;
   }
   return (
     <TouchableOpacity
