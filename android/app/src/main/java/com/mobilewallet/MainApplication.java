@@ -3,6 +3,8 @@ package com.mobilewallet;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.bitgo.randombytes.RandomBytesPackage;
 import com.tradle.react.UdpSocketsModule;
 import com.peel.react.TcpSocketsModule;
 import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
@@ -37,6 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new LinearGradientPackage(),
+            new RandomBytesPackage(),
             new UdpSocketsModule(),
             new TcpSocketsModule(),
             new RNSecureKeyStorePackage(),
