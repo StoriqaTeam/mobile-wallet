@@ -31,7 +31,7 @@ export default () => (
           <Scene key={QRSCANNER} component={qr.QRScanner} />
         </Stack>
         <Scene key={PIN} hideNavBar={false} component={accounts.Pin} navBar={PinNavbar} />
-        <Scene key={AMOUNT} hideNavBar={false} component={accounts.Pin} />
+        <Scene key={AMOUNT} hideNavBar={false} component={accounts.Amount} />
       </Modal>
     </Router>
   </View>
