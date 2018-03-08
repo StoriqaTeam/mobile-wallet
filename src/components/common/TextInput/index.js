@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 
 type PropsType = {
-  //
+  borderBottomColor?: string,
+  textColor?: string,
 };
 
 type StateType = {
@@ -24,7 +25,7 @@ class TextInput extends Component<PropsType, StateType> {
   };
 
   render() {
-    const { placeholder, onChangeText, style: propsStyle } = this.props;
+    const { placeholder, onChangeText, style: propsStyle, borderBottomColor, textColor } = this.props;
     const { isFocused, value } = this.state;
     return (
       <View style={styles.container}>
@@ -36,7 +37,7 @@ class TextInput extends Component<PropsType, StateType> {
           placeholderTextColor="#BCBCBC"
           style={[
             styles.main,
-            isFocused ? styles.inputActive : styles.inputInactive,
+            isFocused ? [styles.inputActive, { borderBottomColor, color: textColor }] : styles.inputInactive,
             propsStyle,
           ]}
           onFocus={() => this.setState({ isFocused: true })}

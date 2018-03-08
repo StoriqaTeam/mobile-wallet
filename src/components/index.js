@@ -1,5 +1,1 @@
-import AccountComponent from './Account';
-
-export {
-  AccountComponent,
-}
+export { default as AccountComponent} from './Account';

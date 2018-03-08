@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
-  Text
+  Text,
+  Image,
 } from 'react-native';
 
 type PropsType = {
@@ -13,6 +14,8 @@ type PropsType = {
   type: 'default' | 'danger',
   isLight: boolean,
   onClick: Function,
+  style?: {},
+  icon?: string,
 };
 
 const typesMap = {
@@ -26,6 +29,13 @@ const colorsMap = {
 };
 
 const Button = (props: PropsType) => {
+  let icon;
+  switch (props.icon) {
+    case 'add': icon = (<Image style={{ backgroundColor: 'transparent', position: 'absolute', top: 10, left: 13 }} source={require('./icons/button_icon_add.png')} />); break;
+    case 'import': icon = (<Image style={{ backgroundColor: 'transparent', position: 'absolute', top: 10, left: 13 }} source={require('./icons/button_icon_import.png')} />); break;
+    case 'arrow_down': icon = (<Image style={{ backgroundColor: 'transparent', position: 'absolute', top: 10, left: 13 }} source={require('./icons/button_icon_arrow_down.png')} />); break;
+    case 'arrow_up': icon = (<Image style={{ backgroundColor: 'transparent', position: 'absolute', top: 10, left: 13 }} source={require('./icons/button_icon_arrow_up.png')} />); break;
+  }
   return (
     <TouchableOpacity
       onPress={props.onClick}
@@ -37,8 +47,10 @@ const Button = (props: PropsType) => {
           borderColor: colorsMap[props.type],
           borderWidth: 1,
         } : {},
+        props.style && props.style,
       ]}
     >
+      {props.icon && (icon)}
       <Text style={
         [styles.textStyle, {
           color: props.isLight ? colorsMap[props.type] : '#fff',

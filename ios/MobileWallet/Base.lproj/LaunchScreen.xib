@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,15 +15,32 @@
             <rect key="frame" x="0.0" y="0.0" width="609" height="618"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="y8h-pG-3ue">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashScreen" translatesAutoresizingMaskIntoConstraints="NO" id="y8h-pG-3ue">
                     <rect key="frame" x="0.0" y="0.0" width="609" height="618"/>
                 </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="5Vj-Na-1aQ">
+                    <rect key="frame" x="240" y="300" width="129" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="bxu-MU-NVW"/>
+                        <constraint firstAttribute="width" constant="129" id="zWb-bx-bcd"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iS-Qi-Pij">
+                    <rect key="frame" x="234.5" y="326" width="139" height="57.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="5Vj-Na-1aQ" firstAttribute="centerX" secondItem="y8h-pG-3ue" secondAttribute="centerX" id="G2R-al-UOP"/>
                 <constraint firstItem="y8h-pG-3ue" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="PMW-E6-yBf"/>
+                <constraint firstItem="5Vj-Na-1aQ" firstAttribute="centerY" secondItem="y8h-pG-3ue" secondAttribute="centerY" id="XOj-1w-CQn"/>
                 <constraint firstAttribute="trailing" secondItem="y8h-pG-3ue" secondAttribute="trailing" id="ZbE-Ha-Tjq"/>
                 <constraint firstItem="y8h-pG-3ue" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fjF-ru-9Cu"/>
+                <constraint firstItem="5iS-Qi-Pij" firstAttribute="top" secondItem="5Vj-Na-1aQ" secondAttribute="bottom" constant="8" id="iDg-fy-FLd"/>
+                <constraint firstItem="5iS-Qi-Pij" firstAttribute="centerX" secondItem="y8h-pG-3ue" secondAttribute="centerX" id="qLg-7V-die"/>
                 <constraint firstAttribute="bottom" secondItem="y8h-pG-3ue" secondAttribute="bottom" id="tds-BL-3yS"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -32,6 +49,7 @@
         </view>
     </objects>
     <resources>
-        <image name="splash" width="375" height="812"/>
+        <image name="logo" width="129" height="18"/>
+        <image name="splashScreen" width="375" height="667"/>
     </resources>
 </document>
