@@ -11,10 +11,10 @@ import Account from './Account';
 
 const Web3 = require('web3');
 // const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-export function offlineWeb3() { 
+function offlineWeb3() { 
   return new Web3();
 }
-export function onlineWeb3() { 
+function onlineWeb3() { 
   return new Web3(new Web3.providers.HttpProvider('https://kovan.infura.io/fbuouJvwnJedVLF6og25'));
 }
 
@@ -78,6 +78,7 @@ class Store {
   // создание аккаунта
   createAccount = (pin): string => {
     const { address, privateKey } = this.web3.eth.accounts.create();
+    console.log('*!*!*!**!* address, privateKey: ', { address, privateKey });
     this._storePrivateKey({ address, privateKey, pin });
   }
 

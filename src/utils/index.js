@@ -11,6 +11,11 @@ export function randomString(length) {
 	return randomstring;
 }
 
+
+export function intToHex(intValue) {
+  return "0x" + intValue.toString(16);
+}
+
 export function convertToHex(str) {
   let hex = '';
   for(let i=0;i<str.length;i++) {

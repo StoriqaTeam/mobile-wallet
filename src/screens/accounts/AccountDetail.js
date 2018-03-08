@@ -53,7 +53,7 @@ export default class Account extends Component<PropsType, StateType> {
     // Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
 
     // start remove this block
-    const str = '0x134c2658d60a06333FF0e5CE47cEaC800b3Aa608.1';
+    const str = '0x4B88cce4c42814623325315aB138b3666058010D.1';
     this.onCreateTransactionCallback(str);
     // end remove this block
   }
