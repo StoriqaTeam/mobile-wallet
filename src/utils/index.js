@@ -59,3 +59,18 @@ export const fetchQuery = async (url) => {
   });
   return await response.json();
 }
+
+export const parseAmountToNum = str => {
+  if (str.indexOf('.') > -1) {
+    return parseFloat(str, 10);
+  }
+  return parseInt(str, 10);
+}
+
+export const stqToWEI = stq => {
+  return stq * Math.pow(10, 18);
+}
+
+export const weiToSTQ = wei => {
+  return wei / Math.pow(10, 18);
+}

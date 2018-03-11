@@ -17,6 +17,7 @@ const Error = (props: PropsType) => (
       is overloaded currently
     </Text>
     <Button
+      onClick={() => Actions.push(ACCOUNTS)}
       text="OK"
       type="default"
       style={{ width: 203, marginBottom: 120 }}
