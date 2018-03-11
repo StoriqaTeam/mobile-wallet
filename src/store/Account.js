@@ -27,12 +27,10 @@ export default class Account {
 
   @computed get shortBalance() {
     const splited = this.balance.toString().split('.');
-    console.log('&&&&& splited: ', splited[1])
     if (splited[1]) {
       return `${splited[0]}.${splited[1].slice(0, 2)}`;
     }
     return splited[0];
-
   }
 
   createTransaction = async ({ paymentStr, pin }) => {
