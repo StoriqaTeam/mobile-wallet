@@ -1,34 +1,49 @@
 // @flow
 import React from 'react';
-import { Button, View, Text, TextInput } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Button, View, Image, Text, StyleSheet } from 'react-native';
 import QRCode from 'react-native-qrcode';
-import { QRSCANNER } from '../../constants';
 
+type PropsType = {
+  text: string,
+};
 
-class QRGenerator extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     text: 'http://facebook.github.io/react-native/',
-  //   };
-  // }
+const QRGenerator = (props: PropsType) => (
+  <View style={styles.container}>
+    <Image style={styles.image} source={require('./img/QR.png')} />
+    <Text style={styles.label}>
+      Scan this Qr-code within wallet supporting{'\n'}
+      QR-scanning to receive money{'\n'}
+      to your wallet
+    </Text>
+    <View style={styles.qr}>
+      <QRCode
+        value={props.text}
+        size={200}
+        bgColor="black"
+        fgColor="white"
+      />
+    </View>
+    {/* <Button title="go to scan" onPress={() => Actions.push(QRSCANNER)} /> */}
+  </View>
+);
 
-  render() {
-    const { text } = this.props;
-    return (
-      <View style={{ margin: 16 }}>
-        <Text>QRGenerator</Text>
-        <QRCode
-          value={text}
-          size={200}
-          bgColor="purple"
-          fgColor="white"
-        />
-        {/* <Button title="go to scan" onPress={() => Actions.push(QRSCANNER)} /> */}
-      </View>
-    );
-  }
-}
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  image: {
+    marginTop: 34,
+  },
+  qr: {
+    marginBottom: 66,
+  },
+  label: {
+    textAlign: 'center',
+    opacity: 0.5,
+  },
+});
 
 export default QRGenerator;

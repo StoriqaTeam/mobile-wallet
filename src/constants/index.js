@@ -9,4 +9,3 @@ export const PIN = 'pin';
 export const AMOUNT = 'AMOUNT';
 export const SUCCESS = 'SUCCESS';
 export const ERROR = 'ERROR';
-

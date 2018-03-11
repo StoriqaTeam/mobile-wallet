@@ -1,9 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-
 // @flow
+
 import React, { Component } from 'react';
 import {
   Platform,
@@ -11,8 +7,7 @@ import {
   Text,
   View,
   ScrollView,
-  Button,
-  TextInput,
+  FlatList,
 } from 'react-native';
 import {observer} from "mobx-react";
 import Aes from 'react-native-aes-crypto';
@@ -20,7 +15,10 @@ import { Actions } from 'react-native-router-flux';
 import store from '@store';
 import { ACCOUNTS, ACCOUNTDETAIL, KEYGENERATOR, PIN, QRSCANNER, AMOUNT, QRGENERATOR } from '@constants';
 import { AccountComponent } from '@components';
-
+import { Button, TextInput } from '@components/common';
+import { commonStyles } from '@styles';
+import CreateOrImportModal from '@components/Account/CreateOrImportModal';
+import { map } from 'ramda';
 
 type PropsType = {
 }
@@ -32,16 +30,21 @@ type AccountType = {
 }
 
 type StateType = {
-  accounts: AccountType[],
+  accounts: Array<AccountType>,
+  isModalVisible: boolean,
 }
 
 @observer
 class Accounts extends Component<PropsType, StateType> {
+  state: StateType = {
+    isModalVisible: false,
+    accounts: [],
+  };
   // пушим экран ввода Pin и передаем колбэк который вызывается
   // в методе handleStoreKey Pin 
   handleCreateAccount = () => {
     Actions.push(PIN, { callback: this.newAccountPinCallback });
-  }
+  };
 
   newAccountPinCallback = (pin: string) => {
     store.createAccount(pin);
@@ -74,39 +77,35 @@ class Accounts extends Component<PropsType, StateType> {
   }
 
   render() {
-    console.log('$$$ store.accounts: ', store.accounts.slice());
     return (
-      <View style={{ marginTop: 30 }}>
-        <Text style={{}}>Accounts</Text>
-        <Button
-          onPress={this.handleCreateAccount}
-          title="New Account"
-          color="#841584"
+      <View style={[commonStyles.containerView/*, {backgroundColor: 'red'}*/]}>
+        <CreateOrImportModal
+          visible={this.state.isModalVisible}
+          onPressClose={() => this.setState({ isModalVisible: false })}
+          onPressCreate={() => {
+            this.setState({ isModalVisible: false });
+            this.handleCreateAccount();
+          }}
+          onPressImport={() => {
+            this.setState({ isModalVisible: false });
+            this.handleImportAccount();
+          }}
         />
-        <Button
-          onPress={this.handleImportAccount}
-          title="Import Account"
-          color="#841584"
-        />
-        <Button
-          onPress={store.fetchBalance}
-          title="fetch balance"
-          color="#841584"
-        />
-        <ScrollView>
-          {store.accounts.length !== 0 &&
-            <AccountsList accounts={store.accounts} onPress={this.onAccountPress} />
-          }
-        </ScrollView>
+        <View>
+          <ScrollView style={{ paddingTop: 13, }} showsVerticalScrollIndicator={false}>
+            {map(item => (<AccountComponent key={item.address} account={item} onPress={this.onAccountPress} />), store.accounts)}
+            <Button
+              onClick={() => this.setState({ isModalVisible: true })}
+              text="Create or import wallet"
+              type="default"
+              isLight
+              style={{marginTop: 0, marginBottom: 26 }}
+            />
+          </ScrollView>
+        </View>
       </View>
     );
   }
 }
-
-const AccountsList = ({ accounts, onPress }) => (<View>
-  {accounts.map((account, index) => (
-    <AccountComponent key={index} account={account} onPress={onPress} />
-  ))}
-</View>);
 
 export default Accounts;
