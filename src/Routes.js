@@ -30,9 +30,9 @@ export default () => (
   <View style={{ flex: 1 }}>
     <Router wrapBy={observer}>
       <Modal hideNavBar>
-        <Stack key={ROOT}>
-          <Scene key={ACCOUNTS} initial component={accounts.AccountsList} navBar={AccountsListNavbar} />
-          <Scene key={ACCOUNTDETAIL} component={accounts.AccountDetail} navBar={AccountDetailNavbar} />
+        <Stack hideNavBar key={ROOT}>
+          <Scene key={ACCOUNTS} initial component={accounts.AccountsList} />
+          <Scene key={ACCOUNTDETAIL} component={accounts.AccountDetail} />
           <Scene key={KEYGENERATOR} component={keys.KeyGenerator} />
           <Scene key={QRGENERATOR} component={qr.QRGenerator} navBar={QRGeneratorNavbar} />
           <Scene key={QRSCANNER} component={qr.QRScanner} navBar={QRScannerNavbar} />

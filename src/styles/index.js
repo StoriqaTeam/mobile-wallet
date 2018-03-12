@@ -17,4 +17,16 @@ export const commonStyles = StyleSheet.create({
     fontSize: 36,
     fontWeight: 'bold',
   },
+  addIcon: {
+    height: 26,
+    width: 26,
+    position: 'absolute',
+    right: 16,
+    bottom: 8,
+  },
+  removeIcon: {
+    position: 'absolute',
+    top: 31,
+    right: 22,
+  },
 });

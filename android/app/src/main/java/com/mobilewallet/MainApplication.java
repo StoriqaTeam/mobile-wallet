@@ -4,21 +4,13 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.cmcewen.blurview.BlurViewPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.bitgo.randombytes.RandomBytesPackage;
 import com.tradle.react.UdpSocketsModule;
 import com.peel.react.TcpSocketsModule;
-import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
-import com.bitgo.randombytes.RandomBytesPackage;
 import com.peel.react.rnos.RNOSModule;
 import com.BV.LinearGradient.LinearGradientPackage;
-import org.reactnative.camera.RNCameraPackage;
-import com.tectiv3.aes.RCTAesPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.tectiv3.aes.RCTAesPackage;
 import org.reactnative.camera.RNCameraPackage;
-// import com.tectiv3.aes.RCTAesPackage;
 import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -39,18 +31,11 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
+            new MainReactPackage(),
             new BlurViewPackage(),
-            new LinearGradientPackage(),
-            new RandomBytesPackage(),
             new UdpSocketsModule(),
             new TcpSocketsModule(),
-            new RNSecureKeyStorePackage(),
-            new RandomBytesPackage(),
             new RNOSModule(),
-            new LinearGradientPackage(),
-            new RNCameraPackage(),
-            new RCTAesPackage(),
             new LinearGradientPackage(),
             new RandomBytesPackage(),
             new RCTAesPackage(), // tested successfull
