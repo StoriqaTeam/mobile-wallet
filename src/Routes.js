@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { View } from 'react-native';
 import { Router, Modal, Stack, Scene } from 'react-native-router-flux';
@@ -15,7 +17,6 @@ import {
 } from '@constants';
 import { observer } from 'mobx-react/native';
 import * as qr from './screens/qr';
-import * as keys from './screens/keys';
 import * as accounts from './screens/accounts';
 import AccountsListNavbar from '@components/Account/AccountsListNavbar';
 import AccountDetailNavbar from '@components/AccountDetail/AccountDetailNavbar';
@@ -33,7 +34,6 @@ export default () => (
         <Stack hideNavBar key={ROOT}>
           <Scene key={ACCOUNTS} initial component={accounts.AccountsList} />
           <Scene key={ACCOUNTDETAIL} component={accounts.AccountDetail} />
-          <Scene key={KEYGENERATOR} component={keys.KeyGenerator} />
           <Scene key={QRGENERATOR} component={qr.QRGenerator} navBar={QRGeneratorNavbar} />
           <Scene key={QRSCANNER} component={qr.QRScanner} navBar={QRScannerNavbar} />
         </Stack>

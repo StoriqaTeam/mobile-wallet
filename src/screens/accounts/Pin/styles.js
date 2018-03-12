@@ -20,6 +20,7 @@ export default StyleSheet.create({
   },
   input: {
     fontSize: 20,
+    color: '#fff',
   },
   label: {
     textAlign: 'center',

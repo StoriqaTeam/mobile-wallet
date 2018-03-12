@@ -37,8 +37,9 @@ class TextInput extends Component<PropsType, StateType> {
           placeholderTextColor="#BCBCBC"
           style={[
             styles.main,
-            isFocused ? [styles.inputActive, { borderBottomColor, color: textColor }] : styles.inputInactive,
+            isFocused ? [styles.inputActive, { borderBottomColor }] : styles.inputInactive,
             propsStyle,
+            { color: textColor }
           ]}
           onFocus={() => this.setState({ isFocused: true })}
           onBlur={() => this.setState({ isFocused: false })}
