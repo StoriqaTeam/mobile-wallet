@@ -21,6 +21,7 @@ import AccountsListNavbar from '@components/Account/AccountsListNavbar';
 import AccountDetailNavbar from '@components/AccountDetail/AccountDetailNavbar';
 import PinNavbar from '@components/Pin/PinNavbar';
 import AmountNavbar from '@components/Amount/AmountNavbar';
+import QRScannerNavbar from '@components/QRScanner/QRScannerNavbar';
 import QRGeneratorNavbar from '@components/QRGenerator/QRGeneratorNavbar';
 import Success from './components/TransactionResultScreens/Success';
 import Error from './components/TransactionResultScreens/Error';
@@ -34,7 +35,7 @@ export default () => (
           <Scene key={ACCOUNTDETAIL} component={accounts.AccountDetail} navBar={AccountDetailNavbar} />
           <Scene key={KEYGENERATOR} component={keys.KeyGenerator} />
           <Scene key={QRGENERATOR} component={qr.QRGenerator} navBar={QRGeneratorNavbar} />
-          <Scene key={QRSCANNER} component={qr.QRScanner} />
+          <Scene key={QRSCANNER} component={qr.QRScanner} navBar={QRScannerNavbar} />
         </Stack>
         <Scene key={PIN} hideNavBar={false} component={accounts.Pin} navBar={PinNavbar} />
         <Scene key={AMOUNT} hideNavBar={false} component={accounts.Amount} navBar={AmountNavbar} />
