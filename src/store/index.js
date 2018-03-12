@@ -7,10 +7,9 @@ import Aes from 'react-native-aes-crypto';
 import { fetchQuery, randomString, convertToHex, generateSalt, generateKeyByPin, encrypt } from '@utils';
 import R from 'ramda'; // eslint-disable-line
 import Account from './Account';
-// import { ROOT, PROFILE } from '../constants';
+
 
 const Web3 = require('web3');
-// const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
 function offlineWeb3() { 
   return new Web3();
 }
@@ -26,27 +25,12 @@ class Store {
     this.web3 = offlineWeb3();
     this.updateAddresses();
     autorun(() => {
-      // console.log('### Store autorun Actions.currentScene: ', Actions.currentScene);
-      console.log('### Store autorun addresses: ', toJS(this.addresses));
+      // console.log('### Store autorun addresses: ', toJS(this.addresses));
       this.updateAccounts();
     });
     setInterval(() => {
       this.updateAccounts();
-      // this.accounts.forEach(this.updateAccounts);
     }, 15000);
-    // web3.eth.getBlock('latest').then(result => {
-    //   console.log('### store web3 getBlock result: ', result);
-    // });
-    // web3.eth.getAccounts().then(result => console.log('### store web3 getAccounts result: ', result));
-
-    // const newAccount = web3.eth.accounts.create();
-    // console.log('*** populateAccounts account: ', newAccount)
-    // console.log('*** populateAccounts wallet: ', web3.eth.accounts.wallet)
-    // web3.eth.accounts.wallet.add(newAccount)
-    // console.log('*** populateAccounts wallet: ', web3.eth.accounts.wallet)
-    // // web3.eth.accounts.wallet.save();
-    // web3.eth.accounts.wallet.clear();
-    // console.log('*** populateAccounts wallet: ', web3.eth.accounts.wallet)
   }
 
   fetchBalance = async (address) => {
@@ -78,11 +62,11 @@ class Store {
   // создание аккаунта
   createAccount = (pin): string => {
     const { address, privateKey } = this.web3.eth.accounts.create();
+    console.log('*!*!*!**!* address, privateKey: ', { address, privateKey });
     this._storePrivateKey({ address, privateKey, pin });
   }
 
   importAccount = async ({ address, privateKey, pin }) => {
-    // console.log('((((( importAccount !isAsyncStorageIncludesAddress : ', !this.isAsyncStorageIncludesAddress(address))
     const isExist = await this.isAsyncStorageIncludesAddress(address);
     if (!isExist) {
       this._storePrivateKey({ address, privateKey, pin });

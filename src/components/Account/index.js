@@ -23,7 +23,7 @@ export default ({ account, onPress }) => { //
         </View>
         <View style={styles.balanceRow}>
           <Text style={styles.balanceDescriptionLabel}>Money on{'\n'}balance</Text>
-          <Text style={styles.balanceLabel}>{account.balance} STQ</Text>
+          <Text style={styles.balanceLabel}>{account.shortBalance} STQ</Text>
         </View>
       </TouchableOpacity>
     </LinearGradient>

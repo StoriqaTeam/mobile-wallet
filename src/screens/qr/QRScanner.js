@@ -28,12 +28,6 @@ class QRScanner extends React.Component<PorpsType> {
   render() {
     return (
       <View style={{ flex: 1, marginTop: 30 }}>
-        <Button
-          onPress={Actions.pop}
-          title="back"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
         <QRCodeScanner
           onRead={this.onSuccess}
         />

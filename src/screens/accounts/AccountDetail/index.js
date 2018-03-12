@@ -13,48 +13,48 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { Button } from '@components/common';
 import RemoveAlertModal from '@components/AccountDetail/RemoveAlertModal'
-import { KEYGENERATOR, QRGENERATOR, AMOUNT, QRSCANNER } from '@constants';
+import { KEYGENERATOR, QRGENERATOR, AMOUNT, QRSCANNER, PIN, SUCCESS, ERROR } from '@constants';
 
 type StateType = {
   isModalVisible: boolean,
 };
 
 export default class Account extends Component<{}, StateType> {
-  state= {
+  state = {
     isModalVisible: false,
   };
-  static defaultProps = {
-    account: {
-      address: '0x134c2658d60a06333FF0e5CE47cEaC800b3Aa608',
-      balance: '0.0023423'
-    }
-  };
+
+  // static defaultProps = {
+  //   account: {
+  //     address: '0x134c2658d60a06333FF0e5CE47cEaC800b3Aa608',
+  //     balance: '0.0023423'
+  //   }
+  // };
+
   onCreatePaymentCallback = (amount) => {
     const { account } = this.props;
-    console.log('**** ON create payment amount: ', amount);
     Actions.push(QRGENERATOR, { text: `${account.address}.${amount}` });
   };
 
   handleCreatePayment = () => {
-    const { account } = this.props;
-    console.log('**** ON PRESS account: ', account);
+    // const { account } = this.props;
     Actions.push(AMOUNT, { callback: this.onCreatePaymentCallback });
   };
 
-  onCreateTransactionCallback = str => {
+  onCreateTransactionCallback = paymentStr => {
     const { account } = this.props;
-    console.log('**** ON onCreateTransactionCallback qr text: ', str);
-  };
+    // Actions.push(PIN, { callback: pin => this.onGetTransactionPin({ account, paymentStr, pin })});
+    Actions.push(PIN, { callback: pin => account.createTransaction({ paymentStr, pin })});
+  }
 
   handleCreateTransaction = () => {
     // commit Action.push for development and force onCreateTransactionCallback
-    // Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
-
-    // start remove this block
-    const str = '0x134c2658d60a06333FF0e5CE47cEaC800b3Aa608.1';
-    this.onCreateTransactionCallback(str);
-    // end remove this block
-  };
+    Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
+    // // development test block
+    // const paymentStr = '0x4B88cce4c42814623325315aB138b3666058010D,3.45';
+    // this.onCreateTransactionCallback(paymentStr);
+    // // end development test block
+  }
 
   render() {
     const { account } = this.props;
@@ -74,7 +74,7 @@ export default class Account extends Component<{}, StateType> {
           <Text style={styles.defaultLabel}>Wallet address:</Text>
           <Text style={styles.bigLabel}>{account.address}</Text>
           <Text style={[styles.defaultLabel, { marginTop: 26 }]}>Current balance on wallet:</Text>
-          <Text style={styles.bigLabel}>{account.balance} STQ</Text>
+          <Text style={styles.bigLabel}>{account.shortBalance} STQ</Text>
         </View>
         <View style={{ width: '100%' }}>
           <Button

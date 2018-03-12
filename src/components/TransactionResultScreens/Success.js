@@ -8,6 +8,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Button } from '@components/common'
+import { Actions } from 'react-native-router-flux';
+import { ACCOUNTS } from '@constants';
+
 
 type PropsType = {
   amount: string,
@@ -26,6 +29,7 @@ const Success = (props: PropsType) => (
       </Text>
     </View>
     <Button
+      onClick={() => Actions.push(ACCOUNTS)}
       text="OK"
       type="default"
       style={{ width: 203, marginBottom: 120 }}
