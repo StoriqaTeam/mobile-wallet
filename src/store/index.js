@@ -20,6 +20,7 @@ function onlineWeb3() {
 class Store {
   @observable accounts = [];
   @observable addresses = [];
+  @observable isLoading = false;
 
   constructor() {
     this.web3 = offlineWeb3();
@@ -49,6 +50,22 @@ class Store {
         .then(balance => new Account({ address, balance }));
     });
     Promise.all(promises).then(accounts => this.accounts.replace(accounts));
+  }
+
+  @action removeAccount = account => {
+    this.accounts.remove(account);
+    this._removePrivateKey(account);
+    Actions.pop();
+  }
+
+  // удаляем account
+  _removePrivateKey = async (account) => {
+    try {
+      RNSecureKeyStore.remove(account.address);
+      AsyncStorage.removeItem(`@AccountAddress:${account.address}`);
+    } catch(err) {
+      console.error('### Store._removePrivateKey error: ', err);
+    }
   }
 
   updateAddresses = async () => {

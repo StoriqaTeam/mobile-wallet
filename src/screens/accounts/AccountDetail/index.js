@@ -9,11 +9,18 @@ import {
   View,
   TextInput,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Button } from '@components/common';
 import RemoveAlertModal from '@components/AccountDetail/RemoveAlertModal'
 import { KEYGENERATOR, QRGENERATOR, AMOUNT, QRSCANNER, PIN, SUCCESS, ERROR } from '@constants';
+import { MainLayout } from '@layouts';
+import Navbar from '@components/common/Navbar';
+import { commonStyles } from '@styles';
+import { icon_remove } from '@images';
+import store from '@store';
+
 
 type StateType = {
   isModalVisible: boolean,
@@ -49,51 +56,64 @@ export default class Account extends Component<{}, StateType> {
 
   handleCreateTransaction = () => {
     // commit Action.push for development and force onCreateTransactionCallback
-    Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
+    // Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
     // // development test block
-    // const paymentStr = '0x4B88cce4c42814623325315aB138b3666058010D,3.45';
-    // this.onCreateTransactionCallback(paymentStr);
+    const paymentStr = '0x4B88cce4c42814623325315aB138b3666058010D,3.45';
+    this.onCreateTransactionCallback(paymentStr);
     // // end development test block
   }
 
   render() {
     const { account } = this.props;
     return (
-      <View style={styles.container}>
-        <RemoveAlertModal
-          visible={this.state.isModalVisible}
-          onPressClose={() => this.setState({isModalVisible:false})}
-          onPressYes={() => this.setState({isModalVisible:false})}
-          onPressCancel={() => this.setState({isModalVisible:false})}
-        />
-        <Image
-          style={styles.image}
-          source={require('./img/wallet.png')}
-        />
-        <View style={styles.info}>
-          <Text style={styles.defaultLabel}>Wallet address:</Text>
-          <Text style={styles.bigLabel}>{account.address}</Text>
-          <Text style={[styles.defaultLabel, { marginTop: 26 }]}>Current balance on wallet:</Text>
-          <Text style={styles.bigLabel}>{account.shortBalance} STQ</Text>
-        </View>
-        <View style={{ width: '100%' }}>
-          <Button
-            onClick={this.handleCreatePayment}
-            text="Receive money"
-            type="default"
-            icon="arrow_down"
-            style={{ marginLeft: 0, marginRight: 0 }}
+      <MainLayout
+        navbar={
+          <Navbar title="Wallet balance" back>
+            <TouchableOpacity
+              style={commonStyles.removeIcon}
+              onPress={() => this.setState({ isModalVisible: true })}
+            >
+              <Image source={icon_remove} />
+            </TouchableOpacity>
+          </Navbar>
+        }
+      >
+        <View style={styles.container}>
+          <RemoveAlertModal
+            visible={this.state.isModalVisible}
+            onPressClose={() => this.setState({ isModalVisible: false })}
+            onPressYes={() => store.removeAccount(account)}
+            onPressCancel={() => this.setState({ isModalVisible: false })}
           />
-          <Button
-            onClick={this.handleCreateTransaction}
-            text="Pay the bill"
-            type="default"
-            isLight
-            style={{ marginBottom: 12, marginLeft: 0, marginRight: 0 }}
-            icon="arrow_up"
+          <Image
+            style={styles.image}
+            source={require('./img/wallet.png')}
           />
+          <View style={styles.info}>
+            <Text style={styles.defaultLabel}>Wallet address:</Text>
+            <Text style={styles.bigLabel}>{account.address}</Text>
+            <Text style={[styles.defaultLabel, { marginTop: 26 }]}>Current balance on wallet:</Text>
+            <Text style={styles.bigLabel}>{account.shortBalance} STQ</Text>
+          </View>
+          <View style={{ width: '100%' }}>
+            <Button
+              onClick={this.handleCreatePayment}
+              text="Receive money"
+              type="default"
+              icon="arrow_down"
+              style={{ marginLeft: 0, marginRight: 0 }}
+            />
+            <Button
+              onClick={this.handleCreateTransaction}
+              text="Pay the bill"
+              type="default"
+              isLight
+              style={{ marginBottom: 12, marginLeft: 0, marginRight: 0 }}
+              icon="arrow_up"
+            />
+          </View>
         </View>
-      </View>
+      </MainLayout>
     );
   }
 }
