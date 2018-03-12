@@ -13,7 +13,6 @@ import {
 
 import { Button, TextInput } from '@components/common';
 import { QRSCANNER } from '@constants';
-
 import styles from './styles';
 
 type PropsType = {

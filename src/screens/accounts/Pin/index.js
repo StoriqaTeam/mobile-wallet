@@ -13,8 +13,8 @@ import {
 
 import { Button, TextInput } from '@components/common';
 import { QRSCANNER } from '@constants';
-
 import styles from './styles';
+
 
 type PropsType = {
   callback: (v: string) => void,
@@ -46,38 +46,38 @@ export default class AccountPin extends Component<PropsType, StateType> {
   render() {
     const { pin } = this.state;
     return (
-      <KeyboardAvoidingView
-        keyboardVerticalOffset={64}
-        behavior="height"
-        style={styles.container}
-      >
-        <Image source={require('./img/lock.png')} style={styles.image} />
-        <Text style={styles.label}>
-          Make and remember 4-digit{'\n'}
-          pin-code to use while sending money
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={64}
+          behavior="height"
+          style={styles.container}
+        >
+          <Image source={require('./img/lock.png')} style={styles.image} />
+          <Text style={styles.label}>
+            Make and remember 4-digit{'\n'}
+            pin-code to use while sending money
         </Text>
-        <View>
-          <TextInput
-            value={pin}
-            onChangeText={this.onChangePin}
-            keyboardType="numeric"
-            maxLength={5}
-            style={styles.input}
-            autoFocus
-            caretHidden
-            borderBottomColor="#BCBCBC"
-            textColor="#BCBCBC"
-            secureTextEntry
-          />
-          <Button
-            onClick={this.handleStoreKey}
-            text="Create"
-            type="default"
-            disabled={!pin}
-            style={styles.button}
-          />
-        </View>
-      </KeyboardAvoidingView>
+          <View>
+            <TextInput
+              value={pin}
+              onChangeText={this.onChangePin}
+              keyboardType="numeric"
+              maxLength={5}
+              style={styles.input}
+              autoFocus
+              caretHidden
+              borderBottomColor="#BCBCBC"
+              textColor="#BCBCBC"
+              secureTextEntry
+            />
+            <Button
+              onClick={this.handleStoreKey}
+              text="Create"
+              type="default"
+              disabled={!pin}
+              style={styles.button}
+            />
+          </View>
+        </KeyboardAvoidingView>
     );
   }
 }

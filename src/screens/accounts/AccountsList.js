@@ -8,6 +8,8 @@ import {
   View,
   ScrollView,
   FlatList,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 import {observer} from "mobx-react";
 import Aes from 'react-native-aes-crypto';
@@ -16,7 +18,10 @@ import store from '@store';
 import { ACCOUNTS, ACCOUNTDETAIL, KEYGENERATOR, PIN, QRSCANNER, AMOUNT, QRGENERATOR } from '@constants';
 import { AccountComponent } from '@components';
 import { Button, TextInput } from '@components/common';
+import { MainLayout } from '@layouts';
+import Navbar from '@components/common/Navbar';
 import { commonStyles } from '@styles';
+import { icon_add } from '@images';
 import CreateOrImportModal from '@components/Account/CreateOrImportModal';
 import { map } from 'ramda';
 
@@ -78,32 +83,45 @@ class Accounts extends Component<PropsType, StateType> {
 
   render() {
     return (
-      <View style={[commonStyles.containerView/*, {backgroundColor: 'red'}*/]}>
-        <CreateOrImportModal
-          visible={this.state.isModalVisible}
-          onPressClose={() => this.setState({ isModalVisible: false })}
-          onPressCreate={() => {
-            this.setState({ isModalVisible: false });
-            this.handleCreateAccount();
-          }}
-          onPressImport={() => {
-            this.setState({ isModalVisible: false });
-            this.handleImportAccount();
-          }}
-        />
-        <View>
-          <ScrollView style={{ paddingTop: 13, }} showsVerticalScrollIndicator={false}>
-            {map(item => (<AccountComponent key={item.address} account={item} onPress={this.onAccountPress} />), store.accounts)}
-            <Button
-              onClick={() => this.setState({ isModalVisible: true })}
-              text="Create or import wallet"
-              type="default"
-              isLight
-              style={{marginTop: 0, marginBottom: 26 }}
-            />
-          </ScrollView>
+      <MainLayout
+        navbar={
+          <Navbar title="My wallets">
+            <TouchableOpacity
+              style={commonStyles.addIcon}
+              onPress={() => this.setState({ isModalVisible: true })}
+            >
+              <Image source={icon_add} />
+            </TouchableOpacity>
+          </Navbar>
+        }
+      >
+        <View style={[commonStyles.containerView/*, {backgroundColor: 'red'}*/]}>
+          <CreateOrImportModal
+            visible={this.state.isModalVisible}
+            onPressClose={() => this.setState({ isModalVisible: false })}
+            onPressCreate={() => {
+              this.setState({ isModalVisible: false });
+              this.handleCreateAccount();
+            }}
+            onPressImport={() => {
+              this.setState({ isModalVisible: false });
+              this.handleImportAccount();
+            }}
+          />
+          <View>
+            <ScrollView style={{ paddingTop: 13, }} showsVerticalScrollIndicator={false}>
+              {map(item => (<AccountComponent key={item.address} account={item} onPress={this.onAccountPress} />), store.accounts)}
+              <Button
+                onClick={() => this.setState({ isModalVisible: true })}
+                text="Create or import wallet"
+                type="default"
+                isLight
+                style={{marginTop: 0, marginBottom: 26 }}
+              />
+            </ScrollView>
+          </View>
         </View>
-      </View>
+      </MainLayout>
     );
   }
 }
