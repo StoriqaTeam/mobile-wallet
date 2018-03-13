@@ -30,12 +30,17 @@ class Store {
     // if 
     this.updateAddresses();
     autorun(() => {
-      // console.log('### Store autorun addresses: ', toJS(this.addresses));
+      console.log('### Store autorun isLoading: ', toJS(this.isLoading));
       this.updateAccounts();
     });
     setInterval(() => {
       this.updateAccounts();
     }, 15000);
+  }
+
+  @action setIsLoading = value => {
+    console.log('^^^^^ setIsLoading value: ', value);
+    this.isLoading = value;
   }
 
   fetchBalance = async (address) => {

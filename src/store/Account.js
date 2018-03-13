@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux'; // eslint-disable-line
 import { randomString, convertToHex, intToHex, generateSalt, generateKeyByPin, decrypt } from '@utils';
 import { fetchQuery, parseAmountToNum, stqToWEI, weiToSTQ } from '../utils';
 import { SUCCESS, ERROR, CONTRACTADDRESS, ABI, TOKEN } from '@constants';
+import store from '@store';
 
 
 const Web3 = require('web3');
@@ -40,6 +41,7 @@ export default class Account {
     const salt = cipherArr[1];
     const iv = cipherArr[2];
     if (cipher && salt && iv) {
+      store.setIsLoading(true);
       const key = await generateKeyByPin(pin, salt);
       // console.log( '^^^^^ decrypt : ', { cipher, key, iv } )
       const privateKey = await decrypt({ cipher, key, iv });
@@ -84,13 +86,17 @@ export default class Account {
           .on('receipt', result => {
             Actions.push(SUCCESS, { result, amount: weiToSTQ(amount) });
             console.log('result: ', result);
+            store.setIsLoading(false);
           })
           .on('error', error => {
             Actions.push(ERROR, { error });
             console.log('error: ', error);
+            store.setIsLoading(false);
           });
       } catch (err) {
         console.error('**** Account createTransaction catch error: ', err);
+        store.setIsLoading(false);
+        Actions.push(ERROR);
       }
     }
   }

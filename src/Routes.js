@@ -37,8 +37,9 @@ export default () => (
           <Scene key={QRGENERATOR} component={qr.QRGenerator} />
           <Scene key={QRSCANNER} hideNavBar={false} component={qr.QRScanner} navBar={QRScannerNavbar} />
         </Stack>
-        <Scene key={PIN} hideNavBar={false} component={accounts.Pin} navBar={PinNavbar} />
-        <Scene key={AMOUNT} hideNavBar={false} component={accounts.Amount} navBar={AmountNavbar} />
+        {/* <Scene key={PIN} hideNavBar={false} component={accounts.Pin} navBar={PinNavbar} /> */}
+        <Scene key={PIN} component={accounts.Pin} />
+        <Scene key={AMOUNT} component={accounts.Amount} />
         <Scene key={SUCCESS} hideNavBar component={Success} />
         <Scene key={ERROR} hideNavBar component={Error} />
       </Modal>

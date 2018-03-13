@@ -10,7 +10,8 @@ import {
   Image,
   KeyboardAvoidingView,
 } from 'react-native';
-
+import { MainLayout } from '@layouts';
+import Navbar from '@components/common/Navbar';
 import { Button, TextInput } from '@components/common';
 import { QRSCANNER } from '@constants';
 import styles from './styles';
@@ -45,35 +46,40 @@ export default class AccountPin extends Component<PropsType, StateType> {
   render() {
     const { amount } = this.state;
     return (
-      <KeyboardAvoidingView
-        keyboardVerticalOffset={64}
-        behavior="height"
-        style={styles.container}
+      <MainLayout
+        navbar={
+          <Navbar title="Amount" back />
+        }
       >
-        <Image source={require('./img/wallet.png')} style={styles.image} />
-        <Text style={styles.label}>
-          Enter amount
+        <KeyboardAvoidingView
+          behavior="height"
+          style={styles.container}
+        >
+          <Image source={require('./img/wallet.png')} style={styles.image} />
+          <Text style={styles.label}>
+            Enter amount
         </Text>
-        <View>
-          <TextInput
-            value={amount}
-            onChangeText={this.onChangeAmount}
-            keyboardType="numeric"
-            style={styles.input}
-            autoFocus
-            caretHidden
-            borderBottomColor="#BCBCBC"
-            textColor="#BCBCBC"
-          />
-          <Button
-            onClick={this.handleStoreKey}
-            text="Create"
-            type="default"
-            disabled={!amount}
-            style={styles.button}
-          />
-        </View>
-      </KeyboardAvoidingView>
+          <View>
+            <TextInput
+              value={amount}
+              onChangeText={this.onChangeAmount}
+              keyboardType="numeric"
+              style={styles.input}
+              autoFocus
+              caretHidden
+              borderBottomColor="#BCBCBC"
+              textColor="#BCBCBC"
+            />
+            <Button
+              onClick={this.handleStoreKey}
+              text="Create"
+              type="default"
+              disabled={!amount}
+              style={styles.button}
+            />
+          </View>
+        </KeyboardAvoidingView>
+      </MainLayout>
     );
   }
 }
