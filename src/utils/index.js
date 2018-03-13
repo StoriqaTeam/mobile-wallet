@@ -61,7 +61,7 @@ export const fetchQuery = async (url) => {
 }
 
 export const parseAmountToNum = str => {
-  if (str.indexOf('.') > -1) {
+  if (str && str.indexOf('.') > -1) {
     return parseFloat(str, 10);
   }
   return parseInt(str, 10);

@@ -34,8 +34,8 @@ export default () => (
         <Stack hideNavBar key={ROOT}>
           <Scene key={ACCOUNTS} initial component={accounts.AccountsList} />
           <Scene key={ACCOUNTDETAIL} component={accounts.AccountDetail} />
-          <Scene key={QRGENERATOR} component={qr.QRGenerator} navBar={QRGeneratorNavbar} />
-          <Scene key={QRSCANNER} component={qr.QRScanner} navBar={QRScannerNavbar} />
+          <Scene key={QRGENERATOR} component={qr.QRGenerator} />
+          <Scene key={QRSCANNER} hideNavBar={false} component={qr.QRScanner} navBar={QRScannerNavbar} />
         </Stack>
         <Scene key={PIN} hideNavBar={false} component={accounts.Pin} navBar={PinNavbar} />
         <Scene key={AMOUNT} hideNavBar={false} component={accounts.Amount} navBar={AmountNavbar} />

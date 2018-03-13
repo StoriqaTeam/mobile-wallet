@@ -7,6 +7,9 @@ import Aes from 'react-native-aes-crypto';
 import { fetchQuery, randomString, convertToHex, generateSalt, generateKeyByPin, encrypt } from '@utils';
 import R from 'ramda'; // eslint-disable-line
 import Account from './Account';
+import {
+  DEBUG,
+} from '@constants';
 
 
 const Web3 = require('web3');
@@ -24,6 +27,7 @@ class Store {
 
   constructor() {
     this.web3 = offlineWeb3();
+    // if 
     this.updateAddresses();
     autorun(() => {
       // console.log('### Store autorun addresses: ', toJS(this.addresses));

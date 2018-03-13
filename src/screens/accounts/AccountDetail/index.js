@@ -39,7 +39,7 @@ export default class Account extends Component<{}, StateType> {
 
   onCreatePaymentCallback = (amount) => {
     const { account } = this.props;
-    Actions.push(QRGENERATOR, { text: `${account.address}.${amount}` });
+    Actions.push(QRGENERATOR, { text: `${account.address},${amount}` });
   };
 
   handleCreatePayment = () => {
@@ -49,7 +49,7 @@ export default class Account extends Component<{}, StateType> {
 
   onCreateTransactionCallback = paymentStr => {
     const { account } = this.props;
-    // Actions.push(PIN, { callback: pin => this.onGetTransactionPin({ account, paymentStr, pin })});
+    console.log('^^^^ payment str : ', paymentStr);
     Actions.push(PIN, { callback: pin => account.createTransaction({ paymentStr, pin })});
   }
 

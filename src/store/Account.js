@@ -41,6 +41,7 @@ export default class Account {
     const iv = cipherArr[2];
     if (cipher && salt && iv) {
       const key = await generateKeyByPin(pin, salt);
+      // console.log( '^^^^^ decrypt : ', { cipher, key, iv } )
       const privateKey = await decrypt({ cipher, key, iv });
       try {
         const url = `https://api-kovan.etherscan.io/api?module=proxy&action=eth_getTransactionCount&address=${this.address}&tag=latest&apikey=${TOKEN}`;
