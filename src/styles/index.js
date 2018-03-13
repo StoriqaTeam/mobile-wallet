@@ -1,6 +1,7 @@
 // @flow
 
 import {
+  Platform,
   StyleSheet,
 } from 'react-native';
 
@@ -26,7 +27,8 @@ export const commonStyles = StyleSheet.create({
   },
   removeIcon: {
     position: 'absolute',
-    top: 31,
+    // top: 31,
+    top: Platform.select({ ios: 31, android: 11 }),
     right: 22,
   },
 });

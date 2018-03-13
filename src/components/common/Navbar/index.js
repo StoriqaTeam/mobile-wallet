@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react';
 import {
+  Platform,
   View,
   Text,
   Image,
@@ -37,13 +38,13 @@ const Navbar = (props: PropsType) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    height: 64,
+    height: Platform.select({ios: 64, android: 44}),
   },
   label: {
     fontSize: 17,
     fontFamily: 'Helvetica',
     alignSelf: 'center',
-    marginTop: 33,
+    marginTop: Platform.select({ ios: 33, android: 13}),
   },
   addIcon: {
     height: 26,
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 31,
+    top: Platform.select({ ios: 31, android: 11 }),
     left: 8,
   },
 });

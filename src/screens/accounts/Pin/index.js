@@ -55,6 +55,7 @@ export default class AccountPin extends Component<PropsType, StateType> {
         <KeyboardAvoidingView
           behavior="height"
           style={styles.container}
+          keyboardVerticalOffset={Platform.select({ ios: 0, android: 15 })}
         >
           <Image source={require('./img/lock.png')} style={styles.image} />
           <Text style={styles.label}>
