@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 
 export default StyleSheet.create({
@@ -34,7 +34,7 @@ export default StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 15,
+    marginTop: Platform.select({ ios: 25, android: 15}),
     // marginBottom: 16,
   },
   balanceDescriptionLabel: {
