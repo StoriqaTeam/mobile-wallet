@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   Image,
   TouchableOpacity,
 } from 'react-native';
@@ -56,10 +55,10 @@ export default class Account extends Component<{}, StateType> {
 
   handleCreateTransaction = () => {
     // commit Action.push for development and force onCreateTransactionCallback
-    // Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
+    Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
     // // development test block
-    const paymentStr = '0x4B88cce4c42814623325315aB138b3666058010D,3.45';
-    this.onCreateTransactionCallback(paymentStr);
+    // const paymentStr = '0x4B88cce4c42814623325315aB138b3666058010D,3.45';
+    // this.onCreateTransactionCallback(paymentStr);
     // // end development test block
   }
 

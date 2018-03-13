@@ -17,7 +17,7 @@ import { Actions } from 'react-native-router-flux';
 import store from '@store';
 import { ACCOUNTS, ACCOUNTDETAIL, KEYGENERATOR, PIN, QRSCANNER, AMOUNT, QRGENERATOR } from '@constants';
 import { AccountComponent } from '@components';
-import { Button, TextInput } from '@components/common';
+import { Button } from '@components/common';
 import { MainLayout } from '@layouts';
 import Navbar from '@components/common/Navbar';
 import { commonStyles } from '@styles';

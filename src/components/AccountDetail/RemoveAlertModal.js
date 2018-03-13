@@ -16,6 +16,7 @@ type PropsType = {
   onPressYes: Function,
   onPressCancel: Function,
 };
+import { BlurView } from 'react-native-blur';
 
 import { Button } from '@components/common';
 
@@ -27,30 +28,32 @@ const RemoveAlertModal = (props: PropsType) => {
       visible={props.visible}
     >
       <TouchableOpacity activeOpacity={1} style={styles.container} onPress={props.onPressClose}>
-        <TouchableOpacity activeOpacity={1} style={styles.modalView} onPress={() => {}}>
-          <TouchableOpacity style={styles.closeButton} onPress={props.onPressClose}>
-            <Image source={require('../Account/img/modal_close.png')} />
+        <BlurView blurType="dark" style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, justifyContent: 'center' }}>
+          <TouchableOpacity activeOpacity={1} style={styles.modalView} onPress={() => {}}>
+            <TouchableOpacity style={styles.closeButton} onPress={props.onPressClose}>
+              <Image source={require('../Account/img/modal_close.png')} />
+            </TouchableOpacity>
+            <Text style={styles.label}>
+              Do you really want to{'\n'}
+              your wallet?
+            </Text>
+            <Button
+              text="Yes"
+              type="default"
+              style={{ width: 203, marginTop: 45 }}
+              onClick={props.onPressYes}
+              icon="add"
+            />
+            <Button
+              text="Cancel"
+              type="default"
+              isLight
+              style={{ width: 203 }}
+              onClick={props.onPressCancel}
+              icon="import"
+            />
           </TouchableOpacity>
-          <Text style={styles.label}>
-            Do you really want to{'\n'}
-            your wallet?
-          </Text>
-          <Button
-            text="Yes"
-            type="default"
-            style={{ width: 203, marginTop: 45 }}
-            onClick={props.onPressYes}
-            icon="add"
-          />
-          <Button
-            text="Cancel"
-            type="default"
-            isLight
-            style={{ width: 203 }}
-            onClick={props.onPressCancel}
-            icon="import"
-          />
-        </TouchableOpacity>
+        </BlurView>
       </TouchableOpacity>
     </Modal>
   );
@@ -63,7 +66,6 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   container: {
-    backgroundColor: '#00000070',
     display: 'flex',
     flex: 1,
     height: '100%',
