@@ -95,7 +95,7 @@ class Accounts extends Component<PropsType, StateType> {
           </Navbar>
         }
       >
-        <View style={[commonStyles.containerView/*, {backgroundColor: 'red'}*/]}>
+        <View style={[commonStyles.containerView, {flex: 1}]}>
           <CreateOrImportModal
             visible={this.state.isModalVisible}
             onPressClose={() => this.setState({ isModalVisible: false })}
@@ -108,7 +108,7 @@ class Accounts extends Component<PropsType, StateType> {
               this.handleImportAccount();
             }}
           />
-          <View>
+          <View style={{ flex: 1 }}>
             <ScrollView style={{ paddingTop: 13, }} showsVerticalScrollIndicator={false}>
               {map(item => (<AccountComponent key={item.address} account={item} onPress={this.onAccountPress} />), store.accounts)}
               <Button
