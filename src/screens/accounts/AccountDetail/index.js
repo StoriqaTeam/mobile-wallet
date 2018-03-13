@@ -30,13 +30,6 @@ export default class Account extends Component<{}, StateType> {
     isModalVisible: false,
   };
 
-  // static defaultProps = {
-  //   account: {
-  //     address: '0x134c2658d60a06333FF0e5CE47cEaC800b3Aa608',
-  //     balance: '0.0023423'
-  //   }
-  // };
-
   onCreatePaymentCallback = (amount) => {
     const { account } = this.props;
     Actions.push(QRGENERATOR, { text: `${account.address},${amount}` });

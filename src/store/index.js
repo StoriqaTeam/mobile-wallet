@@ -63,8 +63,9 @@ class Store {
   }
 
   @action removeAccount = account => {
-    this.accounts.remove(account);
     this._removePrivateKey(account);
+    this.addresses.remove(account.address);
+    this.accounts.remove(account);
     Actions.pop();
   }
 
@@ -127,13 +128,13 @@ class Store {
   }
 
   // проверяем есть ли ключи с таким же address
-  isAsyncStorageIncludesAddress = async (address) => {
-    const keys = await AsyncStorage.getAllKeys();
-    return keys
-      .filter(key => R.startsWith('@AccountAddress:', key))
-      .map(key => key.split('@AccountAddress:')[1])
-      .includes(address);
-  }
+  // isAsyncStorageIncludesAddress = async (address) => {
+  //   const keys = await AsyncStorage.getAllKeys();
+  //   return keys
+  //     .filter(key => R.startsWith('@AccountAddress:', key))
+  //     .map(key => key.split('@AccountAddress:')[1])
+  //     .includes(address);
+  // }
 
   getPrivateKey = async (address) => {
     RNSecureKeyStore.get(address)

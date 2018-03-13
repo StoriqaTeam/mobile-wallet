@@ -144,7 +144,6 @@ android {
 }
 
 dependencies {
-        compile project(':react-native-blur')
         compile project(':react-native-udp')
         compile project(':react-native-tcp')
         compile project(':react-native-os')

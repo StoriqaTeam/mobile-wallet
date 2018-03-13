@@ -8,8 +8,9 @@ import {
   Modal,
   Image,
   TouchableOpacity,
-  Platform,
 } from 'react-native';
+import { Button } from '@components/common';
+
 
 type PropsType = {
   visible: boolean,
@@ -17,9 +18,7 @@ type PropsType = {
   onPressCreate: Function,
   onPressImport: Function,
 };
-import { BlurView } from 'react-native-blur';
 
-import { Button } from '@components/common';
 
 const CreateOrImportModal = (props: PropsType) => {
   const MyModal = (
@@ -53,16 +52,10 @@ const CreateOrImportModal = (props: PropsType) => {
       style={styles.modal}
       transparent
       visible={props.visible}
+      onRequestClose={() => {}}
     >
       <TouchableOpacity activeOpacity={1} style={styles.container} onPress={props.onPressClose}>
-        {Platform.select({
-          ios: (
-            <BlurView blurType="dark" style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, justifyContent: 'center' }}>
-              {MyModal}
-            </BlurView>
-          ),
-          android: MyModal,
-        })}
+        {MyModal}
       </TouchableOpacity>
     </Modal>
   );
@@ -75,7 +68,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   container: {
-    backgroundColor: Platform.select({ ios: 'transparent', android: '#00000070' }),
+    backgroundColor: '#00000070',
     display: 'flex',
     flex: 1,
     height: '100%',

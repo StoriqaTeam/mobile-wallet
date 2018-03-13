@@ -26,6 +26,7 @@ const RemoveAlertModal = (props: PropsType) => {
       style={styles.modal}
       transparent
       visible={props.visible}
+      onRequestClose={() => {}}
     >
       <TouchableOpacity activeOpacity={1} style={styles.container} onPress={props.onPressClose}>
         <BlurView blurType="dark" style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, justifyContent: 'center' }}>
