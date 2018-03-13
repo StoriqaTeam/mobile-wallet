@@ -34,8 +34,8 @@ export default StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 25,
-    marginBottom: 16,
+    marginTop: 15,
+    // marginBottom: 16,
   },
   balanceDescriptionLabel: {
     fontSize: 13,
