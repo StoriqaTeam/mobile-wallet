@@ -9,6 +9,8 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import { Button } from '@components/common';
+
 
 type PropsType = {
   visible: boolean,
@@ -17,40 +19,43 @@ type PropsType = {
   onPressImport: Function,
 };
 
-import { Button } from '@components/common';
 
 const CreateOrImportModal = (props: PropsType) => {
+  const MyModal = (
+    <TouchableOpacity activeOpacity={1} style={styles.modalView} onPress={() => {}}>
+      <TouchableOpacity style={styles.closeButton} onPress={props.onPressClose}>
+        <Image source={require('./img/modal_close.png')} />
+      </TouchableOpacity>
+      <Text style={styles.label}>
+        Create a new wallet or{'\n'}
+        just import an existed one
+      </Text>
+      <Button
+        text="Create new"
+        type="default"
+        style={{ width: 203, marginTop: 45 }}
+        onClick={props.onPressCreate}
+        icon="add"
+      />
+      <Button
+        text="Import"
+        type="default"
+        isLight
+        style={{ width: 203 }}
+        onClick={props.onPressImport}
+        icon="import"
+      />
+    </TouchableOpacity>
+  );
   return (
     <Modal
       style={styles.modal}
       transparent
       visible={props.visible}
+      onRequestClose={() => {}}
     >
       <TouchableOpacity activeOpacity={1} style={styles.container} onPress={props.onPressClose}>
-       <TouchableOpacity activeOpacity={1} style={styles.modalView} onPress={() => {}}>
-         <TouchableOpacity style={styles.closeButton} onPress={props.onPressClose}>
-           <Image source={require('./img/modal_close.png')} />
-         </TouchableOpacity>
-         <Text style={styles.label}>
-           Create a new wallet or{'\n'}
-           just import an existed one
-         </Text>
-         <Button
-           text="Create new"
-           type="default"
-           style={{ width: 203, marginTop: 45 }}
-           onClick={props.onPressCreate}
-           icon="add"
-         />
-         <Button
-           text="Import"
-           type="default"
-           isLight
-           style={{ width: 203 }}
-           onClick={props.onPressImport}
-           icon="import"
-         />
-       </TouchableOpacity>
+        {MyModal}
       </TouchableOpacity>
     </Modal>
   );

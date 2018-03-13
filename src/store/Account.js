@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux'; // eslint-disable-line
 import { randomString, convertToHex, intToHex, generateSalt, generateKeyByPin, decrypt } from '@utils';
 import { fetchQuery, parseAmountToNum, stqToWEI, weiToSTQ } from '../utils';
 import { SUCCESS, ERROR, CONTRACTADDRESS, ABI, TOKEN } from '@constants';
+import store from '@store';
 
 
 const Web3 = require('web3');
@@ -35,25 +36,34 @@ export default class Account {
 
   createTransaction = async ({ paymentStr, pin }) => {
     const cipherStr = await RNSecureKeyStore.get(this.address);
+    console.log('***** createTransaction cipherStr: ', cipherStr);
     const cipherArr = cipherStr.split('.');
     const cipher = cipherArr[0];
     const salt = cipherArr[1];
     const iv = cipherArr[2];
     if (cipher && salt && iv) {
+      store.setIsLoading(true);
       const key = await generateKeyByPin(pin, salt);
+      console.log('***** generateKeyByPin: ', key);
       const privateKey = await decrypt({ cipher, key, iv });
+      console.log('***** decrypt: ', privateKey);
+      // console.log( '^^^^^ privateKey : ', privateKey )
       try {
         const url = `https://api-kovan.etherscan.io/api?module=proxy&action=eth_getTransactionCount&address=${this.address}&tag=latest&apikey=${TOKEN}`;
         const nonceResponce = await fetchQuery(url);
         const web3 = onlineWeb3();
         // create data for transaction
+        console.log( '^^^^^ data : ', { privateKey } )
         const privateKeyBuffer = new Buffer(privateKey.split('0x')[1], 'hex');
+        // const privateKeyBuffer = new Buffer(privateKey, 'base');
         const gasPrice = intToHex(40 * Math.pow(10, 9));
         const gasLimit = intToHex(100000);
         // get data from payment
         const receiverAddress = paymentStr.split(',')[0];
         const amountSTQStr = paymentStr.split(',')[1];
         const amount = stqToWEI(parseAmountToNum(amountSTQStr));
+
+
         // create data
         const contract = new web3.eth.Contract(ABI);
         const data = contract.methods
@@ -69,6 +79,7 @@ export default class Account {
           data,
         };
 
+
         console.log('**** Account createTransaction privateKeyBuffer: ', {
           privateKey,
           privateKeyBuffer,
@@ -82,14 +93,18 @@ export default class Account {
         web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
           .on('receipt', result => {
             Actions.push(SUCCESS, { result, amount: weiToSTQ(amount) });
-            console.log('result: ', result);
+            console.log('&&*&* on result: ', result);
+            store.setIsLoading(false);
           })
           .on('error', error => {
             Actions.push(ERROR, { error });
-            console.log('error: ', error);
+            console.log('*(*(*( ))) on error: ', error);
+            store.setIsLoading(false);
           });
       } catch (err) {
         console.error('**** Account createTransaction catch error: ', err);
+        store.setIsLoading(false);
+        Actions.push(ERROR);
       }
     }
   }

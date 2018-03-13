@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   Image,
   TouchableOpacity,
 } from 'react-native';
@@ -31,16 +30,9 @@ export default class Account extends Component<{}, StateType> {
     isModalVisible: false,
   };
 
-  // static defaultProps = {
-  //   account: {
-  //     address: '0x134c2658d60a06333FF0e5CE47cEaC800b3Aa608',
-  //     balance: '0.0023423'
-  //   }
-  // };
-
   onCreatePaymentCallback = (amount) => {
     const { account } = this.props;
-    Actions.push(QRGENERATOR, { text: `${account.address}.${amount}` });
+    Actions.push(QRGENERATOR, { text: `${account.address},${amount}` });
   };
 
   handleCreatePayment = () => {
@@ -50,16 +42,16 @@ export default class Account extends Component<{}, StateType> {
 
   onCreateTransactionCallback = paymentStr => {
     const { account } = this.props;
-    // Actions.push(PIN, { callback: pin => this.onGetTransactionPin({ account, paymentStr, pin })});
+    // console.log('^^^^ payment str : ', paymentStr);
     Actions.push(PIN, { callback: pin => account.createTransaction({ paymentStr, pin })});
   }
 
   handleCreateTransaction = () => {
     // commit Action.push for development and force onCreateTransactionCallback
-    // Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
+    Actions.push(QRSCANNER, { callback: this.onCreateTransactionCallback });
     // // development test block
-    const paymentStr = '0x4B88cce4c42814623325315aB138b3666058010D,3.45';
-    this.onCreateTransactionCallback(paymentStr);
+    // const paymentStr = '0x4B88cce4c42814623325315aB138b3666058010D,3.45';
+    // this.onCreateTransactionCallback(paymentStr);
     // // end development test block
   }
 

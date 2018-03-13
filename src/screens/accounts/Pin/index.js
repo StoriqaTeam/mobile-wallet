@@ -10,7 +10,8 @@ import {
   Image,
   KeyboardAvoidingView,
 } from 'react-native';
-
+import { MainLayout } from '@layouts';
+import Navbar from '@components/common/Navbar';
 import { Button, TextInput } from '@components/common';
 import { QRSCANNER } from '@constants';
 import styles from './styles';
@@ -46,10 +47,15 @@ export default class AccountPin extends Component<PropsType, StateType> {
   render() {
     const { pin } = this.state;
     return (
+      <MainLayout
+        navbar={
+          <Navbar title="Pin-code" back />
+        }
+      >
         <KeyboardAvoidingView
-          keyboardVerticalOffset={64}
           behavior="height"
           style={styles.container}
+          keyboardVerticalOffset={Platform.select({ ios: 0, android: 15 })}
         >
           <Image source={require('./img/lock.png')} style={styles.image} />
           <Text style={styles.label}>
@@ -78,6 +84,7 @@ export default class AccountPin extends Component<PropsType, StateType> {
             />
           </View>
         </KeyboardAvoidingView>
+      </MainLayout>
     );
   }
 }
