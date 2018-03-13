@@ -49,7 +49,7 @@ export default class Account extends Component<{}, StateType> {
 
   onCreateTransactionCallback = paymentStr => {
     const { account } = this.props;
-    console.log('^^^^ payment str : ', paymentStr);
+    // console.log('^^^^ payment str : ', paymentStr);
     Actions.push(PIN, { callback: pin => account.createTransaction({ paymentStr, pin })});
   }
 

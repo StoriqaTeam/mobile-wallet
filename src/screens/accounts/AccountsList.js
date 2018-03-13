@@ -62,18 +62,19 @@ class Accounts extends Component<PropsType, StateType> {
     Actions.push(QRSCANNER, { callback: this.importAccountQRScannerCallback });
   }
 
-  importAccountQRScannerCallback = str => {
-    const qrArray = str.split('.');
-    const address = qrArray[0];
-    const privateKey = qrArray[1];
+  importAccountQRScannerCallback = privateKey => {
+    // const qrArray = str.split('.');
+    // const address = qrArray[0];
+    // const privateKey = qrArray[1];
+    console.log('QR str: ', { privateKey })
     Actions.push(PIN, {
-      callback: pin => this.importAccountPinCallback({ address, privateKey, pin }),
+      callback: pin => this.importAccountPinCallback({ privateKey, pin }),
     });
   }
 
-  importAccountPinCallback = ({ address, privateKey, pin }) => {
-    console.log('&&&& importAccountPinCallback data: ', { address, privateKey, pin })
-    store.importAccount({ address, privateKey, pin });
+  importAccountPinCallback = ({ privateKey, pin }) => {
+    console.log('&&&& importAccountPinCallback data: ', { privateKey, pin })
+    store.importAccount({ privateKey, pin });
     Actions.push(ACCOUNTS);
   }
 
