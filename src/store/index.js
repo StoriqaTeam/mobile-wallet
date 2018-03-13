@@ -39,17 +39,16 @@ class Store {
   }
 
   @action setIsLoading = value => {
-    console.log('^^^^^ setIsLoading value: ', value);
     this.isLoading = value;
   }
 
   fetchBalance = async (address) => {
-    console.log('^^^^^ fetch balance address: ', address);
+    // console.log('^^^^^ fetch balance address: ', address);
     const token = 'I8ZWEG466U3WV3EAKH4CJHJCBAYNVR2HPK';
     const contractAddress = '0xec827D2c2493ca90cC237f4F314979973f17F5A8';
     const url = `https://api-kovan.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${contractAddress}&address=${address}&tag=latest&apikey=${token}`;
     const result = await fetchQuery(url);
-    console.log('^^^^^ fetch balance result: ', result);
+    // console.log('^^^^^ fetch balance result: ', result);
     const devider = Math.pow(10, 18);
     const converted = parseInt(result.result, 10) / Math.pow(10, 18);
     return converted;
@@ -90,7 +89,7 @@ class Store {
   // создание аккаунта
   createAccount = (pin): string => {
     const { address, privateKey } = this.web3.eth.accounts.create();
-    console.log('**** create account address, privateKey: ', { address, privateKey });
+    // console.log('**** create account address, privateKey: ', { address, privateKey });
     this._storePrivateKey({ address, privateKey, pin });
   }
 
@@ -100,7 +99,7 @@ class Store {
       privateKey = `0x${privateKey}`;
     }
     const account = this.web3.eth.accounts.privateKeyToAccount(privateKey);
-    console.log('^^^^ imported account: ', account);
+    // console.log('^^^^ imported account: ', account);
     const address = account.address;
     this._storePrivateKey({ address, privateKey, pin });
     // const isexist = await this.isAsyncStorageIncludesAddress(account.address);
@@ -116,11 +115,11 @@ class Store {
   }) => {
     try {
       const encrypted = await encrypt({ str: privateKey, pin });
-      console.log('**** _storePrivateKey encrypted: ', { encrypted });
+      // console.log('**** _storePrivateKey encrypted: ', { encrypted });
       const privateStr = [encrypted.cipher, encrypted.salt, encrypted.iv].join('.');
       const stored = await RNSecureKeyStore.set(address, privateStr);
       const storedtoAS = await AsyncStorage.setItem(`@AccountAddress:${address}`, '');
-      console.log('**** _storePrivateKey privateKey: ', { stored });
+      // console.log('**** _storePrivateKey privateKey: ', { stored });
       this.updateAddresses();
     } catch(err) {
       console.error('### Store.storePrivateKey error: ', err);
