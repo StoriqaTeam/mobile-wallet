@@ -36,7 +36,7 @@ export default class Account {
 
   createTransaction = async ({ paymentStr, pin }) => {
     const cipherStr = await RNSecureKeyStore.get(this.address);
-    console.log('***** createTransaction cipherStr: ', cipherStr);
+    // console.log('***** createTransaction cipherStr: ', cipherStr);
     const cipherArr = cipherStr.split('.');
     const cipher = cipherArr[0];
     const salt = cipherArr[1];
@@ -44,16 +44,16 @@ export default class Account {
     if (cipher && salt && iv) {
       store.setIsLoading(true);
       const key = await generateKeyByPin(pin, salt);
-      console.log('***** generateKeyByPin: ', key);
+      // console.log('***** generateKeyByPin: ', key);
       const privateKey = await decrypt({ cipher, key, iv });
-      console.log('***** decrypt: ', privateKey);
+      // console.log('***** decrypt: ', privateKey);
       // console.log( '^^^^^ privateKey : ', privateKey )
       try {
         const url = `https://api-kovan.etherscan.io/api?module=proxy&action=eth_getTransactionCount&address=${this.address}&tag=latest&apikey=${TOKEN}`;
         const nonceResponce = await fetchQuery(url);
         const web3 = onlineWeb3();
         // create data for transaction
-        console.log( '^^^^^ data : ', { privateKey } )
+        // console.log( '^^^^^ data : ', { privateKey } )
         const privateKeyBuffer = new Buffer(privateKey.split('0x')[1], 'hex');
         // const privateKeyBuffer = new Buffer(privateKey, 'base');
         const gasPrice = intToHex(40 * Math.pow(10, 9));
@@ -80,12 +80,12 @@ export default class Account {
         };
 
 
-        console.log('**** Account createTransaction privateKeyBuffer: ', {
-          privateKey,
-          privateKeyBuffer,
-          rawTx,
-          amount,
-        });
+        // console.log('**** Account createTransaction privateKeyBuffer: ', {
+        //   privateKey,
+        //   privateKeyBuffer,
+        //   rawTx,
+        //   amount,
+        // });
 
         const tx = new Tx(rawTx);
         tx.sign(privateKeyBuffer);
@@ -93,12 +93,12 @@ export default class Account {
         web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
           .on('receipt', result => {
             Actions.push(SUCCESS, { result, amount: weiToSTQ(amount) });
-            console.log('&&*&* on result: ', result);
+            // console.log('&&*&* on result: ', result);
             store.setIsLoading(false);
           })
           .on('error', error => {
             Actions.push(ERROR, { error });
-            console.log('*(*(*( ))) on error: ', error);
+            // console.log('*(*(*( ))) on error: ', error);
             store.setIsLoading(false);
           });
       } catch (err) {

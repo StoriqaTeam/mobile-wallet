@@ -66,14 +66,14 @@ class Accounts extends Component<PropsType, StateType> {
     // const qrArray = str.split('.');
     // const address = qrArray[0];
     // const privateKey = qrArray[1];
-    console.log('QR str: ', { privateKey })
+    // console.log('QR str: ', { privateKey })
     Actions.push(PIN, {
       callback: pin => this.importAccountPinCallback({ privateKey, pin }),
     });
   }
 
   importAccountPinCallback = ({ privateKey, pin }) => {
-    console.log('&&&& importAccountPinCallback data: ', { privateKey, pin })
+    // console.log('&&&& importAccountPinCallback data: ', { privateKey, pin })
     store.importAccount({ privateKey, pin });
     Actions.push(ACCOUNTS);
   }

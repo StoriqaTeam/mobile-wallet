@@ -139,9 +139,9 @@ class Store {
   getPrivateKey = async (address) => {
     RNSecureKeyStore.get(address)
       .then((res) => {
-        console.log('# got private key from keystore: ', res);
+        // console.log('# got private key from keystore: ', res);
       }, (err) => {
-        console.log('# error when getting private key from keystore: ', err);
+        // console.log('# error when getting private key from keystore: ', err);
       });
   }
 

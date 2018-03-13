@@ -28,7 +28,7 @@ type StateType = {
 export default class AccountPin extends Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
-    console.log('### AccountPin constructor props: ', props);
+    // console.log('### AccountPin constructor props: ', props);
     this.state = {
       pin: null,
     }
