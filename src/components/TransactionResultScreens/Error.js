@@ -8,14 +8,20 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Button } from '@components/common'
+import { Actions } from 'react-native-router-flux';
+import { ACCOUNTS } from '@constants';
 
-const Error = (props: PropsType) => (
+
+const Error = ({ error }) => (
   <View style={styles.container}>
     <Image source={require('./img/error.png')} style={styles.image} />
-    <Text style={styles.descLabel}>
-      Please try again later - server{'\n'}
-      is overloaded currently
-    </Text>
+    {error &&
+      <Text>{error}</Text> ||
+      <Text style={styles.descLabel}>
+        Please try again later - server{'\n'}
+        is overloaded currently
+      </Text>
+    }
     <Button
       onClick={() => Actions.push(ACCOUNTS)}
       text="OK"
