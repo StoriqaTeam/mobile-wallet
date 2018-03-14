@@ -28,9 +28,11 @@ const Navbar = ({ title, leftButton, rightButton, back }) => {
             </View>
           </TouchableOpacity>
         )}
-        <TouchableOpacity style={styles.itemWrapper} onPress={leftButton.onPress}>
-          {leftButton && leftButton.component}
-        </TouchableOpacity>
+        {leftButton &&
+          <TouchableOpacity style={styles.itemWrapper} onPress={leftButton.onPress}>
+            {leftButton.component}
+          </TouchableOpacity>
+        }
       </View>
       <View style={styles.labelWrapper}>
         <Text style={styles.label}>
@@ -38,9 +40,11 @@ const Navbar = ({ title, leftButton, rightButton, back }) => {
         </Text>
       </View>
       <View style={styles.rightWrapper}>
-        <TouchableOpacity style={styles.itemWrapper} onPress={rightButton.onPress}>
-          {rightButton && rightButton.component}
-        </TouchableOpacity>
+        {rightButton &&
+          <TouchableOpacity style={styles.itemWrapper} onPress={rightButton.onPress}>
+            {rightButton && rightButton.component}
+          </TouchableOpacity>
+        }
       </View>
     </View>
   );
