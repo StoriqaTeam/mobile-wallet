@@ -20,14 +20,14 @@ const gradients = [
   ['#CE9A69', '#00B3FF'],
 ];
 
-const getGradient = () => {
-  const num = Math.floor(Math.random() * 4);
-  return gradients[num];
+const getGradient = index => {
+  // const num = Math.floor(Math.random() * 4);
+  return gradients[index%5];
 }
 
-export default ({ account, onPress }) => { //
+export default ({ account, onPress, index }) => { //
   return (
-    <LinearGradient colors={getGradient()} style={styles.container} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+    <LinearGradient colors={getGradient(index)} style={styles.container} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
       <TouchableOpacity onPress={() => onPress(account)}>
         <View style={styles.accountInfoRow}>
           <Text numberOfLines={1} style={styles.addressLabel}>{account.address}</Text>
