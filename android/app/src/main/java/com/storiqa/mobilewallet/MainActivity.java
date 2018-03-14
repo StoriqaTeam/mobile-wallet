@@ -1,4 +1,4 @@
-package com.mobilewallet;
+package com.storiqa.mobilewallet;
 
 import com.facebook.react.ReactActivity;
 
