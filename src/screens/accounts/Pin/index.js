@@ -77,7 +77,6 @@ export default class AccountPin extends Component<PropsType, StateType> {
               value={pin}
               onChangeText={this.onChangePin}
               keyboardType="numeric"
-              returnKeyType="done"
               maxLength={5}
               style={styles.input}
               caretHidden

@@ -37,7 +37,6 @@ export default class Account {
 
   createTransaction = async ({ paymentStr, pin }) => {
     const cipherStr = await RNSecureKeyStore.get(this.address);
-    // console.log('***** createTransaction cipherStr: ', cipherStr);
     const cipherArr = cipherStr.split('.');
     const cipher = cipherArr[0];
     const salt = cipherArr[1];
@@ -45,69 +44,66 @@ export default class Account {
     if (cipher && salt && iv) {
       store.setIsLoading(true);
       const key = await generateKeyByPin(pin, salt);
-      // console.log('***** generateKeyByPin: ', key);
-      const privateKey = await decrypt({ cipher, key, iv });
-      // console.log('***** decrypt: ', privateKey);
-      // console.log( '^^^^^ privateKey : ', privateKey )
+      const privateKey = '';
       try {
-        const url = `https://api-kovan.etherscan.io/api?module=proxy&action=eth_getTransactionCount&address=${this.address}&tag=latest&apikey=${TOKEN}`;
-        const nonceResponce = await fetchQuery(url);
-        const web3 = onlineWeb3();
-        // create data for transaction
-        // console.log( '^^^^^ data : ', { privateKey } )
-        const privateKeyBuffer = new Buffer(privateKey.split('0x')[1], 'hex');
-        // const privateKeyBuffer = new Buffer(privateKey, 'base');
-        const gasPrice = intToHex(40 * Math.pow(10, 9));
-        const gasLimit = intToHex(100000);
-        // get data from payment
-        const receiverAddress = paymentStr.split(',')[0];
-        const amountSTQStr = paymentStr.split(',')[1];
-        const amount = stqToWEI(parseAmountToNum(amountSTQStr));
-
-
-        // create data
-        const contract = new web3.eth.Contract(ABI);
-        const data = contract.methods
-          .transfer(receiverAddress, amount)
-          .encodeABI();
-
-        const rawTx = {
-          nonce: nonceResponce.result,
-          gasPrice,
-          gasLimit,
-          to: CONTRACTADDRESS,
-          value: '0x00',
-          data,
-        };
-
-
-        // console.log('**** Account createTransaction privateKeyBuffer: ', {
-        //   privateKey,
-        //   privateKeyBuffer,
-        //   rawTx,
-        //   amount,
-        // });
-
-        const tx = new Tx(rawTx);
-        tx.sign(privateKeyBuffer);
-        const serializedTx = tx.serialize();
-        web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
-          .on('receipt', result => {
-            // Keyboard.dismiss();
-            store.setIsLoading(false);
-            Actions.push(SUCCESS, { result, amount: weiToSTQ(amount) });
-            // Actions.reset(SUCCESS, { result, amount: weiToSTQ(amount) });
-            // console.log('&&*&* on result: ', result);
-          })
-          .on('error', error => {
-            Actions.push(ERROR, { error });
-            // console.log('*(*(*( ))) on error: ', error);
-            store.setIsLoading(false);
-          });
-      } catch (err) {
-        console.error('**** Account createTransaction catch error: ', err);
+        privateKey = await decrypt({ cipher, key, iv });
+      } catch (error) {
+        console.log( '^^^^^ decrypt error : ', error )
         store.setIsLoading(false);
-        Actions.push(ERROR);
+        Actions.reset(ERROR, { error: 'Probably you entered an incorrect pin' });
+      }
+      if (privateKey) {
+        try {
+          const url = `https://api-kovan.etherscan.io/api?module=proxy&action=eth_getTransactionCount&address=${this.address}&tag=latest&apikey=${TOKEN}`;
+          const nonceResponce = await fetchQuery(url);
+          const web3 = onlineWeb3();
+          // create data for transaction
+          const privateKeyBuffer = new Buffer(privateKey.split('0x')[1], 'hex');
+          const gasPrice = intToHex(40 * Math.pow(10, 9));
+          const gasLimit = intToHex(100000);
+          // get data from payment
+          const receiverAddress = paymentStr.split(',')[0];
+          const amountSTQStr = paymentStr.split(',')[1];
+          const amount = stqToWEI(parseAmountToNum(amountSTQStr));
+
+
+          // create data
+          const contract = new web3.eth.Contract(ABI);
+          const data = contract.methods
+            .transfer(receiverAddress, amount)
+            .encodeABI();
+
+          const rawTx = {
+            nonce: nonceResponce.result,
+            gasPrice,
+            gasLimit,
+            to: CONTRACTADDRESS,
+            value: '0x00',
+            data,
+          };
+          // console.log('**** Account createTransaction privateKeyBuffer: ', {
+          //   privateKey,
+          //   privateKeyBuffer,
+          //   rawTx,
+          //   amount,
+          // });
+          const tx = new Tx(rawTx);
+          tx.sign(privateKeyBuffer);
+          const serializedTx = tx.serialize();
+          web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
+            .on('receipt', result => {
+              store.setIsLoading(false);
+              Actions.reset(SUCCESS, { result, amount: weiToSTQ(amount) });
+            })
+            .on('error', error => {
+              Actions.reset(ERROR, { error });
+              store.setIsLoading(false);
+            });
+        } catch (error) {
+          console.log('**** Account createTransaction catch error: ', error);
+          store.setIsLoading(false);
+          Actions.push(ERROR, { error: 'Transaction failed for some reasone. Please try again later.' });
+        }
       }
     }
   }
