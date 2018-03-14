@@ -1,4 +1,4 @@
-package com.mobilewallet;
+package com.storiqa.mobilewallet;
 
 import android.app.Application;
 
@@ -18,6 +18,8 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
 import java.util.List;
+
+// import com.friendster.BuildConfig;
 
 public class MainApplication extends Application implements ReactApplication {
 

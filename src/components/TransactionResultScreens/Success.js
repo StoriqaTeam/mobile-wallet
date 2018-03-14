@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   StyleSheet,
+  Keyboard,
 } from 'react-native';
 import { Button } from '@components/common'
 import { Actions } from 'react-native-router-flux';

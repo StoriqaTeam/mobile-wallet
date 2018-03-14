@@ -21,8 +21,9 @@ import { Button } from '@components/common';
 import { MainLayout } from '@layouts';
 import Navbar from '@components/common/Navbar';
 import { commonStyles } from '@styles';
-import { icon_add } from '@images';
+import { icon_add, icon_remove } from '@images';
 import CreateOrImportModal from '@components/Account/CreateOrImportModal';
+import RemoveAllWalletsModal from '@components/Account/RemoveAllWalletsModal';
 import { map } from 'ramda';
 
 type PropsType = {
@@ -43,8 +44,10 @@ type StateType = {
 class Accounts extends Component<PropsType, StateType> {
   state: StateType = {
     isModalVisible: false,
+    isRemoveModalVisible: false,
     accounts: [],
   };
+
   // пушим экран ввода Pin и передаем колбэк который вызывается
   // в методе handleStoreKey Pin 
   handleCreateAccount = () => {
@@ -82,18 +85,25 @@ class Accounts extends Component<PropsType, StateType> {
     Actions.push(ACCOUNTDETAIL, { account });
   }
 
+  handleRemoveAccount = () => {
+    store.removeAllAccounts();
+  }
+
   render() {
     return (
       <MainLayout
         navbar={
-          <Navbar title="My wallets">
-            <TouchableOpacity
-              style={commonStyles.addIcon}
-              onPress={() => this.setState({ isModalVisible: true })}
-            >
-              <Image source={icon_add} />
-            </TouchableOpacity>
-          </Navbar>
+          <Navbar
+            title="My wallets"
+            leftButton={{ 
+              onPress: () => this.setState({ isModalVisible: true }),
+              component: <Image source={icon_add} />,
+            }}
+            rightButton={{ 
+              onPress: () => this.setState({ isRemoveModalVisible: true }),
+              component: <Image source={icon_remove} />,
+            }}
+          />
         }
       >
         <View style={[commonStyles.containerView, {flex: 1}]}>
@@ -109,9 +119,17 @@ class Accounts extends Component<PropsType, StateType> {
               this.handleImportAccount();
             }}
           />
+          <RemoveAllWalletsModal
+            visible={this.state.isRemoveModalVisible}
+            onPressClose={() => this.setState({ isRemoveModalVisible: false })}
+            onPressDelete={() => {
+              this.setState({ isRemoveModalVisible: false });
+              this.handleRemoveAccount();
+            }}
+          />
           <View style={{ flex: 1 }}>
             <ScrollView style={{ paddingTop: 13, }} showsVerticalScrollIndicator={false}>
-              {map(item => (<AccountComponent key={item.address} account={item} onPress={this.onAccountPress} />), store.accounts)}
+              {map((item, index) => (<AccountComponent key={item.address} account={item} index={index} onPress={this.onAccountPress} />), store.accounts)}
               <Button
                 onClick={() => this.setState({ isModalVisible: true })}
                 text="Create or import wallet"

@@ -31,6 +31,7 @@ class Store {
     this.updateAddresses();
     autorun(() => {
       console.log('### Store autorun isLoading: ', toJS(this.isLoading));
+      // console.log('### Store autorun isLoading: ', toJS(this.accounts.slice()));
       this.updateAccounts();
     });
     setInterval(() => {
@@ -60,6 +61,14 @@ class Store {
         .then(balance => new Account({ address, balance }));
     });
     Promise.all(promises).then(accounts => this.accounts.replace(accounts));
+  }
+
+  @action removeAllAccounts = () => {
+    R.forEach(account => {
+      this._removePrivateKey(account);
+    }, this.accounts);
+    this.addresses.replace([]);
+    this.accounts.replace([]);
   }
 
   @action removeAccount = account => {
