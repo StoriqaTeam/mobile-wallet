@@ -53,8 +53,8 @@ const Navbar = ({ title, leftButton, rightButton, back }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    marginTop: Platform.select({ios: 20, android: 0}),
-    height: 44,
+    paddingTop: Platform.select({ios: 20, android: 0}),
+    height: Platform.select({ios: 64, android: 44}),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
