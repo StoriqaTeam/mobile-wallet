@@ -60,14 +60,14 @@ export default class Account extends Component<{}, StateType> {
     return (
       <MainLayout
         navbar={
-          <Navbar title="Wallet balance" back>
-            <TouchableOpacity
-              style={commonStyles.removeIcon}
-              onPress={() => this.setState({ isModalVisible: true })}
-            >
-              <Image source={icon_remove} />
-            </TouchableOpacity>
-          </Navbar>
+          <Navbar
+            title="Wallet balance"
+            back
+            rightButton={{ 
+              onPress: () => this.setState({ isModalVisible: true }),
+              component: <Image source={icon_remove} />,
+            }}
+          />
         }
       >
         <View style={styles.container}>

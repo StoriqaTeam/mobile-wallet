@@ -1,5 +1,6 @@
 // @flow
 import { toJS, observable, autorun, action, computed } from 'mobx'; // eslint-disable-line
+import { Keyboard } from 'react-native';
 import RNSecureKeyStore from 'react-native-secure-key-store';
 import { Actions } from 'react-native-router-flux'; // eslint-disable-line
 import { randomString, convertToHex, intToHex, generateSalt, generateKeyByPin, decrypt } from '@utils';
@@ -92,9 +93,11 @@ export default class Account {
         const serializedTx = tx.serialize();
         web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
           .on('receipt', result => {
-            Actions.push(SUCCESS, { result, amount: weiToSTQ(amount) });
-            // console.log('&&*&* on result: ', result);
+            // Keyboard.dismiss();
             store.setIsLoading(false);
+            Actions.push(SUCCESS, { result, amount: weiToSTQ(amount) });
+            // Actions.reset(SUCCESS, { result, amount: weiToSTQ(amount) });
+            // console.log('&&*&* on result: ', result);
           })
           .on('error', error => {
             Actions.push(ERROR, { error });

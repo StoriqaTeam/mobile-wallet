@@ -17,20 +17,31 @@ type PropsType = {
   children: any,
 };
 
-const Navbar = (props: PropsType) => {
+const Navbar = ({ title, leftButton, rightButton, back }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>
-        {props.title}
-      </Text>
-      <Fragment>
-        {props.back && (
-          <TouchableOpacity style={styles.backButton} onPress={() => Actions.pop()}>
-            <Image source={require('./img/navbar_back.png')} />
+      <View style={styles.leftWrapper}>
+        {back && (
+          <TouchableOpacity style={styles.itemWrapper} onPress={() => Actions.pop()}>
+            <View style={styles.backButton} >
+              <Image source={require('./img/navbar_back.png')} />
+            </View>
           </TouchableOpacity>
         )}
-        {props.children}
-      </Fragment>
+        <TouchableOpacity style={styles.itemWrapper} onPress={leftButton.onPress}>
+          {leftButton && leftButton.component}
+        </TouchableOpacity>
+      </View>
+      <View style={styles.labelWrapper}>
+        <Text style={styles.label}>
+          {title && title}
+        </Text>
+      </View>
+      <View style={styles.rightWrapper}>
+        <TouchableOpacity style={styles.itemWrapper} onPress={rightButton.onPress}>
+          {rightButton && rightButton.component}
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -38,25 +49,39 @@ const Navbar = (props: PropsType) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    height: Platform.select({ios: 64, android: 44}),
+    marginTop: Platform.select({ios: 20, android: 0}),
+    height: 44,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  labelWrapper: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  leftWrapper: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 9,
+  },
+  rightWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingRight: 9,
+  },
+  itemWrapper: {
+    paddingHorizontal: 9,
+    height: '100%',
+    justifyContent: 'center',
   },
   label: {
     fontSize: 17,
     fontFamily: 'Helvetica',
     alignSelf: 'center',
-    marginTop: Platform.select({ ios: 33, android: 13}),
-  },
-  addIcon: {
-    height: 26,
-    width: 26,
-    position: 'absolute',
-    right: 16,
-    bottom: 8,
-  },
-  backButton: {
-    position: 'absolute',
-    top: Platform.select({ ios: 31, android: 11 }),
-    left: 8,
   },
 });
 

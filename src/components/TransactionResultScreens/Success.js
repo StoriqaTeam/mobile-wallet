@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   StyleSheet,
+  Keyboard,
 } from 'react-native';
 import { Button } from '@components/common'
 import { Actions } from 'react-native-router-flux';
@@ -18,6 +19,7 @@ type PropsType = {
 
 const Success = (props: PropsType) => (
   <View style={styles.container}>
+    {console.log('^^^ Success props: ', props)}
     <Image source={require('./img/success.png')} style={styles.image} />
     <View>
       <Text style={styles.amountLabel}>
