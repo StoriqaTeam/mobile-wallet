@@ -915,7 +915,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = U36M7Q868D;
+						DevelopmentTeam = HS8AM3WUSX;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1606,9 +1607,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = U36M7Q868D;
+				DEVELOPMENT_TEAM = HS8AM3WUSX;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
@@ -1631,7 +1634,10 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.storiqa.mobilewallet;
 				PRODUCT_NAME = MobileWallet;
+				PROVISIONING_PROFILE = "034b4bfa-96e8-4139-b7a0-13ba41f27b16";
+				PROVISIONING_PROFILE_SPECIFIER = "STQ MobileWallet Dev";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1640,8 +1646,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U36M7Q868D;
+				DEVELOPMENT_TEAM = HS8AM3WUSX;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
@@ -1664,7 +1672,10 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.storiqa.mobilewallet;
 				PRODUCT_NAME = MobileWallet;
+				PROVISIONING_PROFILE = "8895ab69-1a74-41c6-9945-75b30c63f813";
+				PROVISIONING_PROFILE_SPECIFIER = "STQ Mobile Wallet AdHoc";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
