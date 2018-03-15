@@ -74,3 +74,8 @@ export const stqToWEI = stq => {
 export const weiToSTQ = wei => {
   return wei / Math.pow(10, 18);
 }
+
+export const promiseResult = async (promise) => {
+  return promise.then(result => ([null, result]))
+    .catch(error => ([error]));
+}

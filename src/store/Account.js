@@ -3,14 +3,14 @@ import { toJS, observable, autorun, action, computed } from 'mobx'; // eslint-di
 import { Keyboard } from 'react-native';
 import RNSecureKeyStore from 'react-native-secure-key-store';
 import { Actions } from 'react-native-router-flux'; // eslint-disable-line
-import { randomString, convertToHex, intToHex, generateSalt, generateKeyByPin, decrypt } from '@utils';
+import { randomString, convertToHex, intToHex, generateSalt, generateKeyByPin, decrypt, promiseResult } from '@utils';
 import { fetchQuery, parseAmountToNum, stqToWEI, weiToSTQ } from '../utils';
 import { SUCCESS, ERROR, CONTRACTADDRESS, ABI, TOKEN } from '@constants';
 import store from '@store';
 
-
 const Web3 = require('web3');
 const Tx = require('ethereumjs-tx');
+
 function offlineWeb3() { 
   return new Web3();
 }
@@ -44,15 +44,9 @@ export default class Account {
     if (cipher && salt && iv) {
       store.setIsLoading(true);
       const key = await generateKeyByPin(pin, salt);
-      const privateKey = '';
-      try {
-        privateKey = await decrypt({ cipher, key, iv });
-      } catch (error) {
-        console.log( '^^^^^ decrypt error : ', error )
-        store.setIsLoading(false);
-        Actions.reset(ERROR, { error: 'Probably you entered an incorrect pin' });
-      }
-      if (privateKey) {
+      let privateKey, decryptError;
+      [decryptError, privateKey] = await promiseResult(decrypt({ cipher, key, iv }));
+      if (!decryptError) {
         try {
           const url = `https://api-kovan.etherscan.io/api?module=proxy&action=eth_getTransactionCount&address=${this.address}&tag=latest&apikey=${TOKEN}`;
           const nonceResponce = await fetchQuery(url);
@@ -65,7 +59,6 @@ export default class Account {
           const receiverAddress = paymentStr.split(',')[0];
           const amountSTQStr = paymentStr.split(',')[1];
           const amount = stqToWEI(parseAmountToNum(amountSTQStr));
-
 
           // create data
           const contract = new web3.eth.Contract(ABI);
@@ -81,29 +74,29 @@ export default class Account {
             value: '0x00',
             data,
           };
-          // console.log('**** Account createTransaction privateKeyBuffer: ', {
-          //   privateKey,
-          //   privateKeyBuffer,
-          //   rawTx,
-          //   amount,
-          // });
+
           const tx = new Tx(rawTx);
           tx.sign(privateKeyBuffer);
           const serializedTx = tx.serialize();
           web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
             .on('receipt', result => {
-              store.setIsLoading(false);
               Actions.reset(SUCCESS, { result, amount: weiToSTQ(amount) });
+              setTimeout(() => store.setIsLoading(false), 1000);
             })
             .on('error', error => {
-              Actions.reset(ERROR, { error });
-              store.setIsLoading(false);
+              console.log('Transaction failed with following error: ', error)
+              Actions.reset(ERROR, { error: "Transaction failed" });
+              setTimeout(() => store.setIsLoading(false), 1000);
             });
         } catch (error) {
           console.log('**** Account createTransaction catch error: ', error);
-          store.setIsLoading(false);
-          Actions.push(ERROR, { error: 'Transaction failed for some reasone. Please try again later.' });
+          Actions.reset(ERROR, { error: "Transaction failed" });
+          setTimeout(() => store.setIsLoading(false), 1000);
         }
+      } else {
+          console.log('**** Account decrypt catch error: ', decryptError);
+          Actions.reset(ERROR, { error: "Probably you entered an incorrect pin" });
+          setTimeout(() => store.setIsLoading(false), 1000);
       }
     }
   }

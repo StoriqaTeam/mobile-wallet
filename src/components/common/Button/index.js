@@ -14,6 +14,7 @@ type PropsType = {
   type: 'default' | 'danger',
   isLight: boolean,
   onClick: Function,
+  disabled?: boolean,
   style?: {},
   icon?: string,
 };
@@ -38,7 +39,7 @@ const Button = (props: PropsType) => {
   }
   return (
     <TouchableOpacity
-      onPress={props.onClick}
+      onPress={!props.disabled ? props.onClick : () => {}}
       style={[
         styles.main,
         styles[typesMap[props.type]],
