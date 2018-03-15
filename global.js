@@ -3,4 +3,4 @@ global.Buffer = require('buffer').Buffer;
 global.process = require('process');
 global.btoa = global.btoa || require('Base64').btoa;
 global.crypto = require('react-native-crypto');
-// global.crypto.getRandomValues = (arr) => global.crypto.randomBytes(arr.length)
+global.crypto.getRandomValues = (arr) => global.crypto.randomBytes(arr.length)
