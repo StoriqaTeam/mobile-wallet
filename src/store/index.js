@@ -27,7 +27,8 @@ class Store {
 
   constructor() {
     this.web3 = offlineWeb3();
-    // if 
+    // this.importAccount({ privateKey: '0x50334a37797163c98700cb487f79ca8f294dcf53871b86f5d0be350ca4be5869', pin: '22222' });
+    // this.importAccount({ privateKey: '0x1fd90fe13b3fd920babf518709ac9929a940d61af615a687fad3342e4c884c1c', pin: '22222' });
     this.updateAddresses();
     autorun(() => {
       console.log('### Store autorun isLoading: ', toJS(this.isLoading));
