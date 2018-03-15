@@ -34,7 +34,7 @@ export default ({ account, onPress, index }) => { //
           <Image source={require('./img/stq_logo.png')} style={styles.stqLogo} />
         </View>
         <View style={styles.balanceRow}>
-          <Text style={styles.balanceDescriptionLabel}>Money on{'\n'}balance</Text>
+          <Text style={styles.balanceDescriptionLabel}>Balance</Text>
           <Text style={styles.balanceLabel}>{account.shortBalance} STQ</Text>
         </View>
       </TouchableOpacity>

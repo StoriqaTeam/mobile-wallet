@@ -90,12 +90,12 @@ export default class Account {
             });
         } catch (error) {
           console.log('**** Account createTransaction catch error: ', error);
-          Actions.reset(ERROR, { error: 'Transaction failed for some reasone. Please try again later.' });
+          Actions.reset(ERROR, { error: "Transaction failed" });
           setTimeout(() => store.setIsLoading(false), 1000);
         }
       } else {
           console.log('**** Account decrypt catch error: ', decryptError);
-          Actions.reset(ERROR, { error: 'Probably you entered an incorrect pin' });
+          Actions.reset(ERROR, { error: "Probably you entered an incorrect pin" });
           setTimeout(() => store.setIsLoading(false), 1000);
       }
     }
